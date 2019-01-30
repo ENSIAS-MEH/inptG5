@@ -11,6 +11,12 @@ public class patient {
 	
 	public patient(String l, String f, int a, float w, float h, String g) {
 		
+		last_name = l;
+		first_name = f;
+		age = a;
+		weight = w;
+		height = h;
+		gender = g;
 		
 	}
 	
