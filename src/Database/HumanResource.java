@@ -20,7 +20,50 @@ public class HumanResource
 		statement.executeUpdate(query);
 	}
 	
-	public static int getType(int IdStaff) throws SQLException
+	public static String getName(int IdStaff)
+	{
+		try 
+		{
+			String query="SELECT FirstName,LastName FROM HumanResource where IdStaff='"+IdStaff+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				return (resultSet.getString(1)+resultSet.getString(2));
+			}
+		}
+		catch(Exception e) {System.out.println(e);}
+		return "";
+	}
+	
+	public static int[] getDoctorId(int IdSpecialization)
+	{
+		int lenght=0;
+		try 
+		{
+			String query="SELECT count(*) FROM HumanResource where IdSpecialization='"+IdSpecialization+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				lenght=resultSet.getInt(1);
+			}
+			int[] ret = new int[lenght];
+			query="SELECT IdStaff FROM HumanResource where IdSpecialization='"+IdSpecialization+"';";
+			resultSet= statement.executeQuery(query);
+			int i=0;
+			while(resultSet.next())
+			{
+				ret[i]=resultSet.getInt(1);
+				i++;
+			}
+			return ret;
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	
+	public static int getType(int IdStaff)
 	{
 		try 
 		{
@@ -36,7 +79,7 @@ public class HumanResource
 		return 0;
 	}
 	
-	public static int getSpecialization(int IdStaff) throws SQLException
+	public static int getSpecialization(int IdStaff)
 	{
 		try 
 		{
@@ -52,7 +95,6 @@ public class HumanResource
 		return 0;
 	}
 	
-	
 	public static void setAvailablity(int IdStaff, boolean IsAvailable)
 	{
 		try 
@@ -64,6 +106,23 @@ public class HumanResource
 		catch(Exception e) {System.out.println(e);}
 	}
 	
+	public static boolean connect(String username, String password)
+	{
+		
+		try 
+		{
+			String query="Select Password from HumanResource where Username='"+username+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				return (resultSet.getString(1).equals(password));
+			}
+		}
+		catch(Exception e) {e.printStackTrace();}
+		return false;
+	}
+		
 	public static int count()
 	{
 		try 
