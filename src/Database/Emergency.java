@@ -52,4 +52,28 @@ public class Emergency
 		catch(Exception e) {System.out.println(e);}
 		return 0;
 	}
+	
+	public static ResultSet getResultSet()
+	{
+		try 
+		{
+			String query="SELECT * FROM Emergency;";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	public static ResultSet getResultSetByStatus(String status)
+	{
+		try 
+		{
+			String query="SELECT * FROM Emergency where Status='"+status+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
 }
