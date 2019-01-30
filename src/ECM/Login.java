@@ -57,6 +57,7 @@ public class Login
 		{
 			if(connect(User,Pass))
 			{
+				Window.init(username);
 				frame.dispose();
 			}
 			else
@@ -74,6 +75,7 @@ public class Login
 			{
 				if(connect(User,Pass))
 				{
+					Window.init(username);
 					frame.dispose();
 				}
 				else
