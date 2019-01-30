@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Main.Connect;
+import Main.Main;
 
 public class Patient
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	public static void insert(String firstname, String lastname,String gender,int age, double weight, double height, String bloodtype) throws SQLException
 	{
 		int id=count()+1;

@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
-import Main.Connect;
+import Main.Main;
 
 public class PatientHistory
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	
 	public static void insert(int IdPatient, int IdDoctor, String Sickness, String Treatement, Date date, int Amount ) throws SQLException
 	{

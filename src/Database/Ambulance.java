@@ -5,11 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Main.Connect;
+import Main.Main;
 
 public class Ambulance
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	
 	public static void insert() throws SQLException
 	{

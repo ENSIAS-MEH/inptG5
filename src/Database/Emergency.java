@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
-import Main.Connect;
+import Main.Main;
 
 public class Emergency
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	
 	public static void insert(int IdPatient, Date OccurenceDate, String Location,double Latitude,double longitude, int priority) throws SQLException
 	{

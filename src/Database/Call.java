@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
-import Main.Connect;
+import Main.Main;
 
 public class Call
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	public static void insert(String firstname, String lastname, Date date, int idEmergency) throws SQLException
 	{
 		int id=count()+1;

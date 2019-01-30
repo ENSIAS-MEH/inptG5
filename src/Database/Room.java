@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import Main.Connect;
+import Main.Main;
 
 public class Room
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 
 	public static boolean[] getAvailability()
 	{

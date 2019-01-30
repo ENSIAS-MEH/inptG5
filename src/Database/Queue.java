@@ -8,11 +8,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import Main.Connect;
+import Main.Main;
 
 public class Queue
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	
 	public static void insert(int IdPatient,int IdDoctor) throws SQLException
 	{

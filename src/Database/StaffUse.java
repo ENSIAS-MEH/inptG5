@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import Main.Connect;
+import Main.Main;
 
 public class StaffUse
 {
-	static Connection connection=Connect.getConnection();
+	static Connection connection=Main.getConnection();
 	
 	public static void insert(int IdEmergency, int IdStaff  ) throws SQLException
 	{
