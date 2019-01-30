@@ -17,9 +17,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import Database.Specialization;
 
 public class userInterface {
 
+	public static JPanel consultation;
+	public static JPanel welcome;
+	public static JPanel purpose;
+	public static JPanel info;
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -57,6 +64,8 @@ public class userInterface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		Main.Main.main(null);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,11 +76,20 @@ public class userInterface {
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		JPanel welcome = new JPanel();
+		welcome = new JPanel();
 		layeredPane.add(welcome, "name_272415156203787");
 		welcome.setLayout(null);
 		
 		JButton btnImANew = new JButton("I'm a new patient");
+		btnImANew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				layeredPane.removeAll();
+				layeredPane.add(info);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
 		btnImANew.setForeground(Color.DARK_GRAY);
 		btnImANew.setBackground(Color.CYAN);
 		btnImANew.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -85,7 +103,7 @@ public class userInterface {
 		lblWelcomeToOur.setBounds(143, 90, 497, 40);
 		welcome.add(lblWelcomeToOur);
 		
-		JPanel info = new JPanel();
+		info = new JPanel();
 		layeredPane.add(info, "name_272728495836524");
 		info.setLayout(null);
 		
@@ -176,7 +194,23 @@ public class userInterface {
 		lblNewLabel.setBounds(95, 11, 594, 53);
 		info.add(lblNewLabel);
 		
-		JPanel purpose = new JPanel();
+		JButton btnNewButton_2 = new JButton("Submit");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(purpose);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
+		btnNewButton_2.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_2.setForeground(Color.DARK_GRAY);
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnNewButton_2.setBounds(601, 395, 132, 37);
+		info.add(btnNewButton_2);
+		
+		purpose = new JPanel();
 		layeredPane.add(purpose, "name_273113949385671");
 		purpose.setLayout(null);
 		
@@ -216,13 +250,22 @@ public class userInterface {
 		purpose.add(lblNewLabel_1);
 		
 		JButton btnConsultDoctors = new JButton("Consult Doctors");
+		btnConsultDoctors.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(consultation);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
 		btnConsultDoctors.setForeground(Color.DARK_GRAY);
 		btnConsultDoctors.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnConsultDoctors.setBackground(new Color(135, 206, 250));
 		btnConsultDoctors.setBounds(281, 200, 221, 62);
 		purpose.add(btnConsultDoctors);
 		
-		JPanel consultation = new JPanel();
+		consultation = new JPanel();
 		layeredPane.add(consultation, "name_273497060914089");
 		consultation.setLayout(null);
 		
@@ -232,10 +275,9 @@ public class userInterface {
 		comboBox.setFont(new Font("Tahoma", Font.BOLD, 17));
 		comboBox.setBounds(246, 172, 292, 36);
 		consultation.add(comboBox);
-		comboBox.addItem("Neuroscientist");
-		comboBox.addItem("Psychologist");
-		comboBox.addItem("Surgeon");
-		comboBox.addItem("Doctor");
+		for(int i = 0; i < Specialization.count(); i++) {
+			comboBox.addItem(Specialization.getName(i));
+		}
 		
 		JLabel lblChooseTheDoctors = new JLabel("Choose the Doctor's specialty that you're looking for !");
 		lblChooseTheDoctors.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -268,6 +310,22 @@ public class userInterface {
 		lblWeHopeYoull.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblWeHopeYoull.setBounds(41, 211, 701, 54);
 		printing.add(lblWeHopeYoull);
+		
+		JButton btnNewButton_3 = new JButton("Return to the main page");
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(welcome);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
+		btnNewButton_3.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_3.setForeground(Color.DARK_GRAY);
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnNewButton_3.setBounds(242, 286, 299, 48);
+		printing.add(btnNewButton_3);
 
 	}
 }
