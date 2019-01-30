@@ -95,7 +95,7 @@ public class Swing
 
 	public static JButton NewButton(String text, int size, int width, int height, int x, int y)
 	{
-		return NewButton(text, new Color(224, 116, 60), size, width, height, x, y);
+		return NewButton(text, new Color(0, 200, 200), size, width, height, x, y);
 	}
 
 	// ----------------------NewTextPane--------------------------------------------------------------------------------
