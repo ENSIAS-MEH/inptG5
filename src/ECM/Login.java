@@ -7,8 +7,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import Database.HumanResource;
 
 import UserInterface.Swing;
 
@@ -19,21 +18,15 @@ public class Login
 	public static float scaley;
 	public static float scalex;
 	
-	private static Connection connection;
 	private String username;
 	
 	public static void main(String[] args) 
 	{
+		Main.Main.main(null);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		scaley=(float)screenSize.getHeight()/1080;
 		scalex=(float)screenSize.getWidth()/1920;
 		
-		try 
-		{
-			Class.forName("org.sqlite.JDBC");
-			connection=DriverManager.getConnection("jdbc:sqlite:database.db");
-		}
-		catch(Exception e) {}
 		new Login();
 	}
 	
@@ -62,12 +55,11 @@ public class Login
 		
 		Pass.addActionListener(ae -> 
 		{
-			try
+			if(connect(User,Pass))
 			{
-				connect(User,Pass);
 				frame.dispose();
 			}
-			catch (Exception e1)
+			else
 			{
 				JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
 			}
@@ -80,12 +72,11 @@ public class Login
 		{
 			public void mouseClicked(MouseEvent e)
 			{
-				try
+				if(connect(User,Pass))
 				{
-					connect(User,Pass);
 					frame.dispose();
 				}
-				catch (Exception e1)
+				else
 				{
 					JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
 				}
@@ -103,17 +94,13 @@ public class Login
 		frame.setVisible(true);
 	}
 	
-	void connect(JTextField User,JPasswordField Pass) throws Exception
+	boolean connect(JTextField User,JPasswordField Pass)
 	{
 		username=User.getText();
-		//String password=String.valueOf(Pass.getPassword());
+		String password=String.valueOf(Pass.getPassword());
+		return HumanResource.connect(username, password);
 	}
-
-	public static Connection getConnection()
-	{
-		return connection;
-	}
-
+	
 	public String getUsername()
 	{
 		return username;
