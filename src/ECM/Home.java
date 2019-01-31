@@ -47,6 +47,7 @@ public class Home
 		{
 			public void mouseClicked(MouseEvent e)
 			{
+				Window.frame.dispose();
 				Login.main(null);
 			}
 		});

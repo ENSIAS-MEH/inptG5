@@ -22,7 +22,7 @@ public class Queue
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         String strDate = dateFormat.format(date);
         
-		String query="INSERT INTO Queue Values ('"+id+"','"+strDate+"','"+IdPatient+"','"+IdDoctor+"');";
+		String query="INSERT INTO Queue Values ('"+id+"','"+strDate+"','"+IdPatient+"','"+IdDoctor+"','Waiting');";
 		Statement statement;
 		statement =connection.createStatement();
 		statement.executeUpdate(query);
