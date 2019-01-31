@@ -17,6 +17,7 @@ import Database.HumanResource;
 import Database.InpatientCare;
 import Database.Room;
 import Database.StaffUse;
+import ECM.Map.Map;
 import UserInterface.Swing;
 
 public class Manage
@@ -26,7 +27,7 @@ public class Manage
 	static JTable table;
 	static String status;
 	static int SelectedId = 0;
-	static JButton BOption,BProcess,BResolve;
+	static JButton BOption,BWaiting,BProcess,BInProgress,BResolve,BDone;
 	static boolean RowSelected = false;
 	static float scalex = Login.scalex;
 	static float scaley = Login.scaley;
@@ -34,12 +35,15 @@ public class Manage
 	static JLabel ambText,driverText,roomText,physicianText,nurseText;
 	static JComboBox<String> useAmb, useDriver, useRoom, usePhysician, useNurse;
 
-	public static JPanel Init(String username)
+	public static JPanel Init(String username, int stage)
 	{
 		Manage = new JPanel();
 		BOption = Swing.NewButton("", 17, 200, 40, 400, 850);
 		table = new JTable();
-		status = "Waiting";
+		if(stage==1)	status = "Waiting";
+		else if(stage==2)	status = "Processing";
+		else	status = "Resolved";
+
 		RowSelected = false;
 
 		table.setDefaultEditor(Object.class, null);
@@ -53,7 +57,7 @@ public class Manage
 		table.setModel(DbUtils.resultSetToTableModel(rs));
 
 		//--------------Waiting------------------------------------------------------------------------------------------------------
-		JButton BWaiting = Swing.NewButton("Waiting", Color.GRAY, 17, 200, 40, 180, 250);		Manage.add(BWaiting);
+		BWaiting = Swing.NewButton("Waiting", new Color(0,200,200), 17, 200, 40, 180, 250);		Manage.add(BWaiting);
 		
 		int[] availableAmbId=Ambulance.getAvailble();
 		String[] availableAmb=new String[availableAmbId.length];
@@ -70,9 +74,10 @@ public class Manage
 		useDriver =Swing.NewComboBox(availableDriver,50,30, 700, 725); Manage.add(useDriver);
 		
 		BProcess = Swing.NewButton("Process", Color.GRAY, 17, 200, 40, 700, 800);
-		
+		if(stage!=1)setWaitingElementVisibilty(false);
+
 		//--------------InProgress---------------------------------------------------------------------------------------------------
-		JButton BInProgress = Swing.NewButton("In progress", Color.GRAY, 17, 200, 40, 380, 250);Manage.add(BInProgress);
+		BInProgress = Swing.NewButton("In progress", Color.GRAY, 17, 200, 40, 380, 250);Manage.add(BInProgress);
 		
 		int[] availableRoomId=Room.getAvailble();
 		String[] availableRoom=new String[availableRoomId.length];
@@ -95,12 +100,12 @@ public class Manage
 		usePhysician =Swing.NewComboBox(availablePhysician,50,30, 525, 725); Manage.add(usePhysician);
 		useNurse =Swing.NewComboBox(availableNurse,50,30, 700, 725); Manage.add(useNurse);
 		
-		setInProgressElementVisibilty(false);
+		if(stage!=2)setInProgressElementVisibilty(false);
 
 		BResolve = Swing.NewButton("Resolve", Color.GRAY, 17, 200, 40, 700, 800);
 		
 		//--------------Done---------------------------------------------------------------------------------------------------------
-		JButton BDone = Swing.NewButton("Resolved", Color.GRAY, 17, 200, 40, 580, 250);			Manage.add(BDone);
+		BDone = Swing.NewButton("Resolved", Color.GRAY, 17, 200, 40, 580, 250);			Manage.add(BDone);
 
 		JPanel BOptions = new JPanel();
 		CardLayout cl = new CardLayout();
@@ -117,6 +122,8 @@ public class Manage
 		{
 			public void mousePressed(MouseEvent e)
 			{
+				resetColor();
+				BWaiting.setBackground(new Color(0,200,200));
 				BOptions.setVisible(true);
 				status = "Waiting";
 				resetTable(status);
@@ -125,7 +132,6 @@ public class Manage
 				
 				setWaitingElementVisibilty(true);
 				setInProgressElementVisibilty(false);
-
 			}
 		});
 
@@ -145,7 +151,10 @@ public class Manage
 					
 					Emergency.setStatus(SelectedId, "Processing");
 					
-					resetTable(status);
+					Manage.removeAll();
+					Window.panel.add(Init(username,1), "1");
+					Window.cl.show(Window.panel, "1");
+					Map.deleteWaypoint();
 				}
 			}
 		});
@@ -154,13 +163,17 @@ public class Manage
 		{
 			public void mousePressed(MouseEvent e)
 			{
+				resetColor();
+				BInProgress.setBackground(new Color(0,200,200));
+
 				BOptions.setVisible(true);
 				
 				status = "Processing";
 				resetTable(status);
 				
 				cl.show(BOptions, "2");
-				
+				Map.deleteWaypoint();
+
 				setWaitingElementVisibilty(false);
 				setInProgressElementVisibilty(true);
 
@@ -180,7 +193,7 @@ public class Manage
 					HumanResource.setAvailablity(idDriver,true);
 					
 					int idRoom=Integer.valueOf(useRoom.getSelectedItem().toString());
-					Room.setStatus(idRoom, false);
+					Room.setAvailibility(idRoom, false);
 					
 					int idPhysician=Integer.valueOf(usePhysician.getSelectedItem().toString());
 					HumanResource.setAvailablity(idPhysician,false);
@@ -193,7 +206,10 @@ public class Manage
 
 					Emergency.setStatus(SelectedId, "Resolved");
 					
-					resetTable(status);
+					Manage.removeAll();
+					Window.panel.add(Init(username,2), "1");
+					Window.cl.show(Window.panel, "1");
+					Map.deleteWaypoint();
 				}
 			}
 		});
@@ -202,11 +218,14 @@ public class Manage
 		{
 			public void mousePressed(MouseEvent e)
 			{
+				resetColor();
+				BDone.setBackground(new Color(0,200,200));
 				BOptions.setVisible(false);
 				
 				status = "Resolved";
 				resetTable(status);
-				
+				Map.deleteWaypoint();
+
 				setWaitingElementVisibilty(false);
 				setInProgressElementVisibilty(false);
 
@@ -220,6 +239,7 @@ public class Manage
 		{
 			public void mousePressed(MouseEvent e)
 			{
+				Map.deleteWaypoint();
 				Insertion.Insertion.removeAll();
 				Home.Home.removeAll();
 				Manage.removeAll();
@@ -233,6 +253,10 @@ public class Manage
 			public void mousePressed(MouseEvent e)
 			{
 				SelectedId = Integer.valueOf(table.getValueAt(table.getSelectedRow(), 0).toString());
+				double lat=Double.valueOf(table.getValueAt(table.getSelectedRow(), 5).toString());
+				double lon=Double.valueOf(table.getValueAt(table.getSelectedRow(), 6).toString());
+				double[] info= {lat,lon,15};
+				Map.goTo(info);
 				BProcess.setBackground(new Color(0, 200, 200));
 				BResolve.setBackground(new Color(0, 200, 200));
 				RowSelected = true;
@@ -270,5 +294,12 @@ public class Manage
 		useRoom.setVisible(bool);
 		usePhysician.setVisible(bool);
 		useNurse.setVisible(bool);
+	}
+	
+	static void resetColor()
+	{
+		BWaiting.setBackground(Color.gray);
+		BInProgress.setBackground(Color.gray);
+		BDone.setBackground(Color.gray);
 	}
 }

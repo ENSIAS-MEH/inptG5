@@ -42,7 +42,7 @@ public class Home
 		{
 			public void mouseClicked(MouseEvent e)
 			{
-				Window.panel.add(Manage.Init(username), "2");
+				Window.panel.add(Manage.Init(username,1), "2");
 				Window.cl.show(Window.panel, "2");
 			}
 		});

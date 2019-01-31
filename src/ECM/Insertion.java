@@ -12,28 +12,32 @@ import Database.Call;
 import Database.Emergency;
 import Database.Patient;
 import UserInterface.Swing;
+import ECM.Map.Map;
 
 public class Insertion
 {
+	public static JButton BInsert;
 	public static JTextField firstName, lastName, phone, address;
 	public static double longitude = 0, latitude = 0;
 	public static boolean currentFrame = false;
+	public static boolean canInsert;
 
 	public static JPanel Insertion = new JPanel();
 
 	public static JPanel Init(String username)
 	{
 		currentFrame = true;
-		Insertion.add(Swing.NewLabel("Patient First Name", Color.white, 25, 190, 250));
-		Insertion.add(Swing.NewLabel("Patient Last Name", Color.white, 25, 190, 300));
-		Insertion.add(Swing.NewLabel("Caller's Number", Color.white, 25, 190, 350));
-		Insertion.add(Swing.NewLabel("Address", Color.white, 25, 190, 400));
-		Insertion.add(Swing.NewLabel("Priority", Color.white, 25, 190, 550));
+		canInsert=false;
+		Insertion.add(Swing.NewLabel("Patient First Name", Color.white, 25, 175, 300));
+		Insertion.add(Swing.NewLabel("Patient Last Name", Color.white, 25, 175, 350));
+		Insertion.add(Swing.NewLabel("Caller's Number", Color.white, 25, 175, 400));
+		Insertion.add(Swing.NewLabel("Address", Color.white, 25, 175, 450));
+		Insertion.add(Swing.NewLabel("Priority", Color.white, 25, 175, 550));
 
-		firstName = Swing.NewTextField(350, 35, 405, 250);
-		lastName = Swing.NewTextField(350, 35, 405, 300);
-		phone = Swing.NewTextField(350, 35, 405, 350);
-		address = Swing.NewTextField(420, 35, 335, 400);
+		firstName = Swing.NewTextField(350, 35, 405, 300);
+		lastName = Swing.NewTextField(350, 35, 405, 350);
+		phone = Swing.NewTextField(350, 35, 405, 400);
+		address = Swing.NewTextField(450, 30, 305, 450);
 
 		String[] priorities ={ "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 		JComboBox<String> priority = Swing.NewComboBox(priorities, 400, 550);
@@ -43,49 +47,59 @@ public class Insertion
 		Insertion.add(lastName);
 		Insertion.add(phone);
 		Insertion.add(address);
+		address.setEditable(false);
+		BInsert = Swing.NewButton("Insert",Color.gray, 20, 200, 40, 250, 700);
 
-		JButton BInsert = Swing.NewButton("Insert", 20, 200, 40, 250, 800);
 		Insertion.add(BInsert);
-		JButton Clear = Swing.NewButton("Clear", Color.gray, 15, 200, 40, 520, 800);
+		JButton Clear = Swing.NewButton("Clear", Color.gray, 15, 200, 40, 520, 700);
 		Insertion.add(Clear);
 
 		BInsert.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent arg0)
 			{
-				String FirstName=firstName.getText();
-				String LastName=lastName.getText();
-				String Address = address.getText();
-
-				if (isInt(phone.getText()) && FirstName.length() > 0 && LastName.length() > 0 && Address.length() > 0)
+				if(canInsert)
 				{
-					try
-					{
-						Date date = new Date();
-						DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-						String strDate = dateFormat.format(date);
+					String FirstName=firstName.getText();
+					String LastName=lastName.getText();
+					String Address = address.getText();
 
-						Call.insert(FirstName, LastName, date, Emergency.count()+1);
-						int idPatient=Patient.getId(FirstName, LastName);
-						if(idPatient==-1) 
-							{
-								idPatient=Patient.count()+1;
-								Patient.insert(FirstName, LastName, null, 0, 0, 0, null);
-							}
-						Emergency.insert(idPatient, strDate, Address, latitude, longitude, priority.getSelectedIndex());
-
-						Clear();
-					} catch (Exception e)
+					if (isInt(phone.getText()) && FirstName.length() > 0 && LastName.length() > 0 && Address.length() > 0)
 					{
-						e.printStackTrace();
-						JOptionPane.showMessageDialog(null, "An error occured", "Error",
+						try
+						{
+							Date date = new Date();
+							DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+							String strDate = dateFormat.format(date);
+
+							Call.insert(FirstName, LastName, date, Emergency.count()+1);
+							int idPatient=Patient.getId(FirstName, LastName);
+							if(idPatient==-1) 
+								{
+									idPatient=Patient.count()+1;
+									Patient.insert(FirstName, LastName, null, 0, 0, 0, null);
+								}
+							Emergency.insert(idPatient, strDate, Address, latitude, longitude, priority.getSelectedIndex()+1);
+
+							Clear();
+						} catch (Exception e)
+						{
+							e.printStackTrace();
+							JOptionPane.showMessageDialog(null, "An error occured", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					} else
+					{
+						JOptionPane.showMessageDialog(null, "Please verify your entries", "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
-				} else
+				}
+				else
 				{
-					JOptionPane.showMessageDialog(null, "Please verify your entries", "Error",
+					JOptionPane.showMessageDialog(null, "Please right click on the map to select an adress", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		});
 
@@ -105,10 +119,12 @@ public class Insertion
 			public void mouseClicked(MouseEvent e)
 			{
 				currentFrame = false;
+				canInsert=false;
 				Insertion.removeAll();
 				Home.Home.removeAll();
 				Window.panel.add(Home.Init(username), "0");
 				Window.cl.show(Window.panel, "0");
+				Map.deleteWaypoint();
 			}
 		});
 

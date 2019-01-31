@@ -42,7 +42,8 @@ public class Geolocalisation
 					eElement = (Element) nNode;
 					if (eElement.getElementsByTagName("road").item(0) != null)
 					{
-						address +=","+CharCoding(eElement.getElementsByTagName("road").item(0).getTextContent());
+						if (address.equals("") || address==null)
+						address=CharCoding(eElement.getElementsByTagName("road").item(0).getTextContent());
 					}
 					if (eElement.getElementsByTagName("city_district").item(0) != null)
 					{
