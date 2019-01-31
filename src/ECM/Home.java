@@ -16,7 +16,7 @@ public class Home
 	public static JPanel Init(String username)
 	{
 		Home = new JPanel();
-		Home.add(Swing.NewLabel("Welcome " + username, Color.black, 30, 190, 200));
+		Home.add(Swing.NewLabel("Welcome " + username, Color.white, 30, 190, 200));
 
 		JButton BNext = Swing.NewButton("Insert an emergency", 17, 250, 40, 375, 400);
 		Home.add(BNext);
@@ -33,6 +33,8 @@ public class Home
 		{
 			public void mouseClicked(MouseEvent e)
 			{
+				Window.panel.add(Insertion.Init(username), "1");
+				Window.cl.show(Window.panel, "1");
 			}
 		});
 
@@ -58,7 +60,9 @@ public class Home
 				System.exit(0);
 			}
 		});
-
+		
+		Home.add(Swing.NewImage("res/ECM/Home/Background.png", 960, 1080, 0, 0));
+		
 		Home.setLayout(null);
 		return Home;
 	}
