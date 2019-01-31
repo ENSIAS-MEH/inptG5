@@ -20,6 +20,33 @@ public class Ambulance
 		statement.executeUpdate(query);
 	}
 	
+	public static int[] getAvailble()
+	{
+		int lenght=0;
+		try 
+		{
+			String query="SELECT count(*) FROM Ambulance where isAvailable='true';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				lenght=resultSet.getInt(1);
+			}
+			int[] ret = new int[lenght];
+			query="SELECT IdStaff FROM Ambulance where isAvailable='true';";
+			resultSet= statement.executeQuery(query);
+			int i=0;
+			while(resultSet.next())
+			{
+				ret[i]=resultSet.getInt(1);
+				i++;
+			}
+			return ret;
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	
 	public static void setAvailablity (int IdAmbulance, boolean IsAvailable)
 	{
 		try 
