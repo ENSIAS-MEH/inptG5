@@ -63,4 +63,16 @@ public class Patient
 		catch(Exception e) {System.out.println(e);}
 		return null;
 	}
+	public static String[] getResultSet1(String firstname,String lastname) throws SQLException
+	{
+		ResultSet rs=getResultSet(firstname,lastname);
+		int i=0;
+		String tab[]=new String[8];
+		while(rs.next())
+		{
+			tab[i]=rs.getString(i);
+		}
+		return tab;
+		
+	}
 }

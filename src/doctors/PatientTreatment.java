@@ -1,6 +1,7 @@
 package doctors;
 
 import java.awt.EventQueue;
+import Database.*;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +16,14 @@ import java.awt.Color;
 import java.awt.Desktop.Action;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
@@ -28,6 +36,7 @@ public class PatientTreatment {
 	private JScrollPane scrollPane;
 	private JTable table_1;
 	private JTextField textField;
+	private static Connection connection;
 
 	/**
 	 * Launch the application.
@@ -40,7 +49,15 @@ public class PatientTreatment {
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+			
 				}
+				try 
+				{
+					Class.forName("org.sqlite.JDBC");
+					connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+				}
+				catch(Exception e) {e.printStackTrace();}
+
 			}
 		});
 	}
@@ -118,16 +135,39 @@ public class PatientTreatment {
 		label_5.setFont(new Font("Stencil", Font.PLAIN, 20));
 		label_5.setBounds(279, 236, 89, 39);
 		panel.add(label_5);
+		JLabel label_1 = new JLabel("");
+		JTextField txtYourId = new JTextField();
+		txtYourId.setFont(new Font("Tunga", Font.PLAIN, 19));
+		txtYourId.setHorizontalAlignment(SwingConstants.CENTER);
+		txtYourId.setText("id");
+		txtYourId.setBounds(638, 111, 168, 30);
+		panel.add(txtYourId);
+		txtYourId.setColumns(10);
 		
-
-		JTextField textField = new JTextField(10);
+		
+		
 		AbstractAction action = new AbstractAction()
 		{
 		    @Override
 		    public void actionPerformed(ActionEvent e)
 		    {
-		       
+		    	String p=(String)(textField.getText());
+			      String s[]=p.split("\\s+");
+			     try {
+					label_2.setText(Patient.getResultSet1(s[0],s[1])[4]);
+					label_3.setText(Patient.getResultSet1(s[0],s[1])[3]);
+					label_4.setText(Patient.getResultSet1(s[0],s[1])[6]);
+					label_5.setText(Patient.getResultSet1(s[0],s[1])[5]);
+					label_1.setText(Patient.getResultSet1(s[0],s[1])[7]);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
+			     PatientHistory.update(table,Queue.getResultSet(Integer.parseInt(txtYourId.getText())));
+			     PatientHistory.update(table,PatientHistory.getResultSetByPatient(s[0],s[1]));
 		    }
+		      
+		    
 		};
 
 		
@@ -162,7 +202,15 @@ public class PatientTreatment {
 		lblHistory.setFont(new Font("Stencil", Font.PLAIN, 23));
 		lblHistory.setBounds(26, 11, 152, 39);
 		panel_2.add(lblHistory);
+		JLabel lblBloodType = new JLabel("Blood type:");
+		lblBloodType.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblBloodType.setBounds(392, 236, 137, 39);
+		panel.add(lblBloodType);
 		
+		
+		label_1.setFont(new Font("Stencil", Font.PLAIN, 20));
+		label_1.setBounds(614, 236, 89, 39);
+		panel.add(label_1);
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(165, 161, 578, -113);
 		panel_2.add(scrollPane_1);

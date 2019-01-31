@@ -1,16 +1,21 @@
 package Database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 
+import javax.swing.JTable;
+
 import Main.Main;
+import net.proteanit.sql.DbUtils;
 
 public class PatientHistory
 {
 	static Connection connection=Main.getConnection();
+	
 	
 	public static void insert(int IdPatient, int IdDoctor, String Sickness, String Treatement, Date date, int Amount ) throws SQLException
 	{
@@ -48,5 +53,25 @@ public class PatientHistory
 		}
 		catch(Exception e) {System.out.println(e);}
 		return null;
+	}
+	
+	
+	
+
+	public static void update(JTable table,ResultSet rs){
+		
+		
+		try{
+			
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+			
+		
+		}
+		catch(Exception e)
+		{
+			
+			System.out.println(e);
+		}
+		
 	}
 }
