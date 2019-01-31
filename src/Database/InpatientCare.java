@@ -2,7 +2,6 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import Main.Main;
@@ -10,14 +9,17 @@ import Main.Main;
 public class InpatientCare
 {
 	static Connection connection=Main.getConnection();
-	public static void insert(int IdPatient , int IdDoctor, int IdRoom) throws SQLException
+	public static void insert(int IdPatient , int IdDoctor, int IdRoom, int idNurse)
 	{
-		int id=count()+1;
-		String query="INSERT INTO InpatientCare  Values ('"+id+"','"+IdPatient +"','"+IdDoctor+"','"+IdRoom+"');";
-		Statement statement;
-		statement =connection.createStatement();
-		statement.executeUpdate(query);
-
+		try
+		{
+			int id=count()+1;
+			String query="INSERT INTO InpatientCare  Values ('"+id+"','"+IdPatient +"','"+IdDoctor+"','"+IdRoom+"','"+idNurse+"');";
+			Statement statement;
+			statement =connection.createStatement();
+			statement.executeUpdate(query);
+		}
+		catch(Exception e) {}
 	}
 	
 	public static int count()

@@ -63,6 +63,60 @@ public class HumanResource
 		return null;
 	}
 	
+	public static int[] getAvailbleStaffIdByType(int IdType)
+	{
+		int lenght=0;
+		try 
+		{
+			String query="SELECT count(*) FROM HumanResource where isAvailable='true' and IdType='"+IdType+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				lenght=resultSet.getInt(1);
+			}
+			int[] ret = new int[lenght];
+			query="SELECT IdStaff FROM HumanResource where isAvailable='true' and IdType='"+IdType+"';";
+			resultSet= statement.executeQuery(query);
+			int i=0;
+			while(resultSet.next())
+			{
+				ret[i]=resultSet.getInt(1);
+				i++;
+			}
+			return ret;
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	
+	public static int[] getAvailbleDoctorIdBySpecialization(int IdSpecialization)
+	{
+		int lenght=0;
+		try 
+		{
+			String query="SELECT count(*) FROM HumanResource where isAvailable='true' and IdSpecialization='"+IdSpecialization+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				lenght=resultSet.getInt(1);
+			}
+			int[] ret = new int[lenght];
+			query="SELECT IdStaff FROM HumanResource where isAvailable='true' and IdSpecialization='"+IdSpecialization+"';";
+			resultSet= statement.executeQuery(query);
+			int i=0;
+			while(resultSet.next())
+			{
+				ret[i]=resultSet.getInt(1);
+				i++;
+			}
+			return ret;
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	
 	public static int getType(int IdStaff)
 	{
 		try 
