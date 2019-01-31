@@ -38,11 +38,11 @@ public class PatientHistory
 		return 0;
 	}
 	
-	public static ResultSet getResultSetByPatient(int IdPatient)
+	public static ResultSet getResultSetByPatient(String firstname,String lastname)
 	{
 		try 
 		{
-			String query="SELECT * FROM PatientHistory where IdPatient='"+IdPatient+"';";
+			String query="SELECT * FROM PatientHistory where FirstName='"+firstname+"'and LastName='"+lastname+"';";
 			Statement statement=(Statement) connection.createStatement();
 			return statement.executeQuery(query);
 		}
