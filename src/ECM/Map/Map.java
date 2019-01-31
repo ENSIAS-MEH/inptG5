@@ -17,6 +17,8 @@ import org.jxmapviewer.viewer.DefaultTileFactory;
 import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 
+import ECM.Insertion;
+
 public class Map
 {
 	public static JXMapKit jXMapKit;
@@ -59,6 +61,11 @@ public class Map
 					GeoPosition geo = mapViewer.convertPointToGeoPosition(p);
 					lat = geo.getLatitude();
 					lon = geo.getLongitude();
+					
+					if(Insertion.currentFrame)
+					{
+						Insertion.address.setText(Geolocalisation.getAddress(lat,lon));
+					}
 				}
 			}
 		});

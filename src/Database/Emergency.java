@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 import Main.Main;
 
@@ -12,7 +11,7 @@ public class Emergency
 {
 	static Connection connection=Main.getConnection();
 	
-	public static void insert(int IdPatient, Date OccurenceDate, String Location,double Latitude,double longitude, int priority) throws SQLException
+	public static void insert(int IdPatient, String OccurenceDate, String Location,double Latitude,double longitude, int priority) throws SQLException
 	{
 		int id=count()+1;
 		String query="INSERT INTO Emergency Values ('"+id+"','"+IdPatient+"','"+OccurenceDate+"','','"+Location+"','"+Latitude+"','"+longitude+"','"+priority+"','Waiting');";

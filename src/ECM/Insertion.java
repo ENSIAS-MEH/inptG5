@@ -8,6 +8,9 @@ import java.util.Date;
 
 import javax.swing.*;
 
+import Database.Call;
+import Database.Emergency;
+import Database.Patient;
 import UserInterface.Swing;
 
 public class Insertion
@@ -30,7 +33,7 @@ public class Insertion
 		firstName = Swing.NewTextField(350, 35, 405, 250);
 		lastName = Swing.NewTextField(350, 35, 405, 300);
 		phone = Swing.NewTextField(350, 35, 405, 350);
-		address = Swing.NewTextField(350, 35, 405, 400);
+		address = Swing.NewTextField(420, 35, 335, 400);
 
 		String[] priorities ={ "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 		JComboBox<String> priority = Swing.NewComboBox(priorities, 400, 550);
@@ -41,11 +44,9 @@ public class Insertion
 		Insertion.add(phone);
 		Insertion.add(address);
 
-		JButton BInsert = Swing.NewButton("Insert", 20, 200, 40, 180, 800);
+		JButton BInsert = Swing.NewButton("Insert", 20, 200, 40, 250, 800);
 		Insertion.add(BInsert);
-		JButton BMap = Swing.NewButton("View in map", Color.GRAY, 15, 200, 40, 380, 800);
-		Insertion.add(BMap);
-		JButton Clear = Swing.NewButton("Clear", Color.gray, 15, 200, 40, 580, 800);
+		JButton Clear = Swing.NewButton("Clear", Color.gray, 15, 200, 40, 520, 800);
 		Insertion.add(Clear);
 
 		BInsert.addMouseListener(new MouseAdapter()
@@ -64,8 +65,8 @@ public class Insertion
 						DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 						String strDate = dateFormat.format(date);
 
-						//Call.insert(FirstName, LastName, date, Emergency.count()+1);
-						//Emergency.insert(IdPatient, date, Address, latitude, longitude, priority);
+						Call.insert(FirstName, LastName, date, Emergency.count()+1);
+						Emergency.insert(Patient.getId(FirstName, LastName), strDate, Address, latitude, longitude, priority.getSelectedIndex());
 
 						Clear();
 					} catch (Exception e)
@@ -82,17 +83,6 @@ public class Insertion
 			}
 		});
 
-		/*BMap.addMouseListener(new MouseAdapter()
-		{
-			public void mouseClicked(MouseEvent arg0)
-			{
-				double[] Info = Geolocalisation.getCoor(
-						Emplacement.getText() + Rue.getText() + Commune.getText() + (String) Ville.getSelectedItem());
-				Map.goTo(Info);
-				latitude = Info[0];
-				longitude = Info[1];
-			}
-		});*/
 		Clear.addMouseListener(new MouseAdapter()
 		{
 			public void mouseClicked(MouseEvent arg0)
@@ -101,7 +91,7 @@ public class Insertion
 			}
 		});
 
-		JButton Back = Swing.NewButton("Return", Color.black, 15, 150, 40, 425, 850);
+		JButton Back = Swing.NewButton("Return", Color.black, 15, 150, 40, 410, 850);
 		Insertion.add(Back);
 
 		Back.addMouseListener(new MouseAdapter()
