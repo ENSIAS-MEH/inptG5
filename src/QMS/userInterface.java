@@ -23,6 +23,7 @@ import Database.Specialization;
 
 public class userInterface {
 
+	public static JPanel printing;
 	public static JPanel consultation;
 	public static JPanel welcome;
 	public static JPanel purpose;
@@ -31,9 +32,11 @@ public class userInterface {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
+	private JComboBox comboBox_1;
 	private JTextField textField_4;
 	private JTextField textField_5;
+	private JTextField textField_6;
+
 
 	/**
 	 * Launch the application.
@@ -114,6 +117,7 @@ public class userInterface {
 		info.add(lblFirstName);
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField.setBounds(217, 93, 190, 37);
 		info.add(textField);
 		textField.setColumns(10);
@@ -125,6 +129,7 @@ public class userInterface {
 		info.add(lblLastName);
 		
 		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_1.setColumns(10);
 		textField_1.setBounds(217, 141, 190, 37);
 		info.add(textField_1);
@@ -136,6 +141,7 @@ public class userInterface {
 		info.add(lblAge);
 		
 		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_2.setColumns(10);
 		textField_2.setBounds(217, 189, 190, 37);
 		info.add(textField_2);
@@ -146,29 +152,27 @@ public class userInterface {
 		lblGender.setBounds(46, 237, 161, 37);
 		info.add(lblGender);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(217, 237, 190, 37);
-		info.add(textField_3);
 		
-		JLabel lblHeight = new JLabel("Height");
+		JLabel lblHeight = new JLabel("Height (m)");
 		lblHeight.setForeground(Color.DARK_GRAY);
 		lblHeight.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblHeight.setBounds(46, 285, 161, 37);
 		info.add(lblHeight);
 		
 		textField_4 = new JTextField();
+		textField_4.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_4.setColumns(10);
 		textField_4.setBounds(217, 285, 190, 37);
 		info.add(textField_4);
 		
-		JLabel lblWeight = new JLabel("Weight");
+		JLabel lblWeight = new JLabel("Weight (Kg)");
 		lblWeight.setForeground(Color.DARK_GRAY);
 		lblWeight.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblWeight.setBounds(46, 333, 161, 37);
 		info.add(lblWeight);
 		
 		textField_5 = new JTextField();
+		textField_5.setFont(new Font("Tahoma", Font.BOLD, 15));
 		textField_5.setColumns(10);
 		textField_5.setBounds(217, 333, 190, 37);
 		info.add(textField_5);
@@ -198,10 +202,26 @@ public class userInterface {
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (!(textField.getText().equals("") || textField_1.getText().equals("") ||
+						textField_2.getText().equals(""))) {
+				patient p = new patient(
+						textField.getText(),  //first_name
+						textField_1.getText(),  //last_name
+						Integer.parseInt(textField_2.getText()), //age
+						comboBox_1.getSelectedItem().toString(),  //gender
+						Float.parseFloat(textField_4.getText()),  //height
+						Float.parseFloat(textField_5.getText()),   //weight
+						textField_6.getText());  //blood_type
+				
 				layeredPane.removeAll();
 				layeredPane.add(purpose);
 				layeredPane.repaint();
 				layeredPane.revalidate();
+				}else {
+					textField.setBackground(new Color(248, 110, 110, 255));
+					textField_1.setBackground(new Color(248, 110, 110, 255));
+					textField_2.setBackground(new Color(248, 110, 110, 255));
+				}
 			}
 		});
 		btnNewButton_2.setBackground(Color.LIGHT_GRAY);
@@ -210,11 +230,47 @@ public class userInterface {
 		btnNewButton_2.setBounds(601, 395, 132, 37);
 		info.add(btnNewButton_2);
 		
+		textField_6 = new JTextField();
+		textField_6.setFont(new Font("Tahoma", Font.BOLD, 15));
+		textField_6.setColumns(10);
+		textField_6.setBounds(217, 381, 190, 37);
+		info.add(textField_6);
+		
+		JLabel lblBloodType = new JLabel("Blood Type");
+		lblBloodType.setForeground(Color.DARK_GRAY);
+		lblBloodType.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblBloodType.setBounds(46, 381, 161, 37);
+		info.add(lblBloodType);
+		
+		JLabel label_1 = new JLabel("Optional");
+		label_1.setHorizontalAlignment(SwingConstants.CENTER);
+		label_1.setForeground(Color.GRAY);
+		label_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		label_1.setBounds(417, 381, 97, 37);
+		info.add(label_1);
+		
+		comboBox_1 = new JComboBox();
+		comboBox_1.setFont(new Font("Tahoma", Font.BOLD, 16));
+		comboBox_1.setBackground(Color.LIGHT_GRAY);
+		comboBox_1.setBounds(217, 237, 190, 37);
+		info.add(comboBox_1);
+		comboBox_1.addItem("male");
+		comboBox_1.addItem("female");
+		
 		purpose = new JPanel();
 		layeredPane.add(purpose, "name_273113949385671");
 		purpose.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Diagnostic");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(printing);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
 		btnNewButton.setBackground(new Color(135, 206, 250));
 		btnNewButton.setForeground(Color.DARK_GRAY);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -222,6 +278,15 @@ public class userInterface {
 		purpose.add(btnNewButton);
 		
 		JButton btnScan = new JButton("Scan");
+		btnScan.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(printing);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
 		btnScan.setForeground(Color.DARK_GRAY);
 		btnScan.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnScan.setBackground(new Color(135, 206, 250));
@@ -229,6 +294,15 @@ public class userInterface {
 		purpose.add(btnScan);
 		
 		JButton btnCertificate = new JButton("Certificate");
+		btnCertificate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(printing);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
 		btnCertificate.setForeground(Color.DARK_GRAY);
 		btnCertificate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnCertificate.setBackground(new Color(135, 206, 250));
@@ -236,6 +310,15 @@ public class userInterface {
 		purpose.add(btnCertificate);
 		
 		JButton btnVaccine = new JButton("Vaccine");
+		btnVaccine.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				layeredPane.removeAll();
+				layeredPane.add(printing);
+				layeredPane.repaint();
+				layeredPane.revalidate();
+			}
+		});
 		btnVaccine.setForeground(Color.DARK_GRAY);
 		btnVaccine.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnVaccine.setBackground(new Color(135, 206, 250));
@@ -293,7 +376,7 @@ public class userInterface {
 		btnNewButton_1.setBounds(307, 288, 170, 46);
 		consultation.add(btnNewButton_1);
 		
-		JPanel printing = new JPanel();
+		printing = new JPanel();
 		layeredPane.add(printing, "name_276050841952620");
 		printing.setLayout(null);
 		

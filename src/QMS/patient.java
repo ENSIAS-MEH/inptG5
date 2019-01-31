@@ -4,15 +4,15 @@ import java.sql.SQLException;
 
 public class patient {
 
-	String last_name;
 	String first_name;
+	String last_name;
 	int age;
 	float weight;
 	float height;
 	String gender;
 	String blood_type;
 	
-	public patient(String l, String f, int a, float w, float h, String g, String b) {
+	public patient(String f, String l, int a, String g, float h, float w, String b) {
 		
 		last_name = l;
 		first_name = f;
