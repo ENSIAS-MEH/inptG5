@@ -209,8 +209,8 @@ public class userInterface {
 						textField_1.getText(),  //last_name
 						Integer.parseInt(textField_2.getText()), //age
 						comboBox_1.getSelectedItem().toString(),  //gender
-						Float.parseFloat(textField_4.getText()),  //height
-						Float.parseFloat(textField_5.getText()),   //weight
+						Double.parseDouble(textField_4.getText()),  //height
+						Double.parseDouble(textField_5.getText()),   //weight
 						textField_6.getText());  //blood_type
 				
 				layeredPane.removeAll();

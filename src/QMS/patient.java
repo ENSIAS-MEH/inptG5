@@ -7,12 +7,12 @@ public class patient {
 	String first_name;
 	String last_name;
 	int age;
-	float weight;
-	float height;
+	double weight;
+	double height;
 	String gender;
 	String blood_type;
 	
-	public patient(String f, String l, int a, String g, float h, float w, String b) {
+	public patient(String f, String l, int a, String g, double h, double w, String b) {
 		
 		last_name = l;
 		first_name = f;

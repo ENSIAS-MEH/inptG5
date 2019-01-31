@@ -1,109 +1,62 @@
 package QMS;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfWriter;
-
 
 public class WritePDF
 {
+	 public static final String dest
+     = "C:/itextExamples/sample.pdf";
 
-	static public void InstancePDF(int idIncident,String date,String sousType,String Emplacement,String commune,String Rue,int[] ResourceUsed, int HumainResourceUsed)
-	{
-		String fileName = "fiche.pdf";
-		Document doc = new Document();
 
-		try
-		{
+ public static void createPdf(String dest, String f, String l, int a, String g, double h, double w, String b)
+	    throws DocumentException, IOException {
+     Document document = new Document();
+     PdfWriter.getInstance(
+     document, new FileOutputStream(dest));
+     document.open();
+     
+     Paragraph preface = new Paragraph("Patient Receipt"); 
+     preface.setAlignment(Element.ALIGN_CENTER);
+     
+     Paragraph first_name = new Paragraph("first name : " + f); 
+     Paragraph last_name = new Paragraph("last name : " + l); 
+     Paragraph age = new Paragraph("age : " + a); 
+     Paragraph gender = new Paragraph("gender : " + g); 
+     Paragraph height = new Paragraph("height : " + h +" m"); 
+     Paragraph width = new Paragraph("width : " + w +" Kg"); 
+     Paragraph blood_type = new Paragraph("blood type : " + b); 
 
-			PdfWriter.getInstance(doc, new FileOutputStream(new File(fileName)));
-			doc.open();
+     
+     
+     document.add(preface);
+     document.add( Chunk.NEWLINE );
+     document.add( Chunk.NEWLINE );
+     document.add( Chunk.NEWLINE );
+     document.add(first_name);
+     document.add( Chunk.NEWLINE );
+     document.add(last_name);
+     document.add( Chunk.NEWLINE );
+     document.add(age);
+     document.add( Chunk.NEWLINE );
+     document.add(gender);
+     document.add( Chunk.NEWLINE );
+     document.add(height);
+     document.add( Chunk.NEWLINE );
+     document.add(width);
+     document.add( Chunk.NEWLINE );
+     document.add(blood_type);
 
-			Paragraph para = new Paragraph("                                            ");
-			Paragraph para1 = new Paragraph("ROYAUME DU MAROC\r\n" + "MINISTERE DE L’INTERIEUR\r\n"
-					+ "DIRECTION GENERALE DE LA PROTECTION CIVILE\r\n" + "COMMANDEMENT REGIONAL RABAT SALE KENITRA\r\n"
-					+ "COMMANDEMENT PREFECTORAL RABAT\r\n" + "");
-
-			Image img = Image.getInstance("res/Login/ProtectionCivile.png");
-			img.scaleAbsolute(70, 80);
-			img.setAbsolutePosition(50, 725);
-			
-			Image map = Image.getInstance("map.jpg");
-			map.scaleAbsolute(250, 200);
-			map.setAbsolutePosition(320, 450);
-			doc.add(map);
-			PdfPCell cell = new PdfPCell();
-
-			para.setAlignment(Element.ALIGN_RIGHT);
-			cell.addElement(para);
-			cell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-			cell.setBorder(Rectangle.NO_BORDER);
-			doc.add(cell);
-
-			para1.setAlignment(Element.ALIGN_CENTER);
-
-			doc.add(img);
-
-			doc.add(para1);
-			doc.add(para);
-			doc.add(para);
-			doc.add(new Paragraph("                                                                            "+"LOCALISATION DE L’EVENEMENT SUR CARTE"));
-			doc.add(para);
-			doc.add(para);
-			
-			Paragraph p1 = new Paragraph("DÉPART N° :+ "+idIncident+" /CP RABAT");
-			Paragraph p2 = new Paragraph("DATE ET HEURE : " + date);
-			Paragraph p3 = new Paragraph("MOTIF DE DÉPART : "+sousType);
-			Paragraph p4 = new Paragraph("ADRESSE : "+Emplacement);
-			Paragraph p5 = new Paragraph("\t\tRUE : "+Rue);
-			Paragraph p6 = new Paragraph("COMMUNE : "+commune);
-			Paragraph p7 = new Paragraph("");
-			//Paragraph p8 = new Paragraph("N° APPELANT : "+Appel.getCaller(idIncident));
-			
-			doc.add(p1);
-			doc.add(p2);
-			doc.add(p3);
-			doc.add(p4);
-			doc.add(p5);
-			doc.add(p6);
-			doc.add(p7);
-			//doc.add(p8);
-			doc.add(para);
-			doc.add(para);
-			doc.add(para);
-
-			
-
-			
-			
-			doc.close();
-
-		} catch (FileNotFoundException a)
-		{
-			a.printStackTrace();
-
-		} catch (DocumentException b)
-		{
-			b.printStackTrace();
-		} catch (MalformedURLException e1)
-		{
-			e1.printStackTrace();
-		} catch (IOException e1)
-		{
-			e1.printStackTrace();
-		}
-
-	}
+     
+     document.close();
+ }
+	
 }
