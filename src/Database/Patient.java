@@ -20,6 +20,22 @@ public class Patient
 
 	}
 	
+	public static int getId(String FirstName,String LastName)
+	{
+		try 
+		{
+			String query="SELECT IdPatient FROM Patient where Firstname='"+FirstName+"' and Lastname='"+LastName+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				return resultSet.getInt(1);
+			}
+		}
+		catch(Exception e) {System.out.println(e);}
+		return -1;
+	}
+	
 	public static int count()
 	{
 		try 
@@ -34,5 +50,17 @@ public class Patient
 		}
 		catch(Exception e) {System.out.println(e);}
 		return 0;
+	}
+	public static ResultSet getResultSet(String firstname,String lastname)
+	{
+		try 
+		{
+			String query="SELECT * FROM Patient where FirstName='"+firstname+"'and LastName='"+lastname+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
 	}
 }

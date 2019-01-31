@@ -34,4 +34,17 @@ public class Log
 		catch(Exception e) {System.out.println(e);}
 		return 0;
 	}
+	
+	public static ResultSet getResultSet()
+	{
+		try 
+		{
+			String query="SELECT * FROM Log;";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
 }

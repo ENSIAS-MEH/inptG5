@@ -37,4 +37,16 @@ public class PatientHistory
 		catch(Exception e) {System.out.println(e);}
 		return 0;
 	}
+	
+	public static ResultSet getResultSetByPatient(String firstname,String lastname)
+	{
+		try 
+		{
+			String query="SELECT * FROM PatientHistory where FirstName='"+firstname+"'and LastName='"+lastname+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
 }

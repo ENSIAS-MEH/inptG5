@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Date;
 
 import Main.Main;
 
@@ -12,7 +11,7 @@ public class Emergency
 {
 	static Connection connection=Main.getConnection();
 	
-	public static void insert(int IdPatient, Date OccurenceDate, String Location,double Latitude,double longitude, int priority) throws SQLException
+	public static void insert(int IdPatient, String OccurenceDate, String Location,double Latitude,double longitude, int priority) throws SQLException
 	{
 		int id=count()+1;
 		String query="INSERT INTO Emergency Values ('"+id+"','"+IdPatient+"','"+OccurenceDate+"','','"+Location+"','"+Latitude+"','"+longitude+"','"+priority+"','Waiting');";
@@ -37,6 +36,17 @@ public class Emergency
 		return "";
 	}
 	
+	public static void setStatus(int IdEmergency, String Status)
+	{
+		try 
+		{
+			String query="UPDATE Emergency SET Status= '"+Status +"' WHERE (IdEmergency ="+IdEmergency+")";
+			Statement statement=(Statement) connection.createStatement();
+			statement.executeUpdate(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+	}
+	
 	public static int count()
 	{
 		try 
@@ -51,5 +61,29 @@ public class Emergency
 		}
 		catch(Exception e) {System.out.println(e);}
 		return 0;
+	}
+	
+	public static ResultSet getResultSet()
+	{
+		try 
+		{
+			String query="SELECT * FROM Emergency;";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	public static ResultSet getResultSetByStatus(String status)
+	{
+		try 
+		{
+			String query="SELECT * FROM Emergency where Status='"+status+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
 	}
 }
