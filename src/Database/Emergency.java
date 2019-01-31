@@ -36,6 +36,17 @@ public class Emergency
 		return "";
 	}
 	
+	public static void setStatus(int IdEmergency, String Status)
+	{
+		try 
+		{
+			String query="UPDATE Emergency SET Status= '"+Status +"' WHERE (IdEmergency ="+IdEmergency+")";
+			Statement statement=(Statement) connection.createStatement();
+			statement.executeUpdate(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+	}
+	
 	public static int count()
 	{
 		try 

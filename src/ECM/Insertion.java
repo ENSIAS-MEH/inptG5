@@ -24,8 +24,8 @@ public class Insertion
 	public static JPanel Init(String username)
 	{
 		currentFrame = true;
-		Insertion.add(Swing.NewLabel("Caller First Name", Color.white, 25, 190, 250));
-		Insertion.add(Swing.NewLabel("Caller Last Name", Color.white, 25, 190, 300));
+		Insertion.add(Swing.NewLabel("Patient First Name", Color.white, 25, 190, 250));
+		Insertion.add(Swing.NewLabel("Patient Last Name", Color.white, 25, 190, 300));
 		Insertion.add(Swing.NewLabel("Caller's Number", Color.white, 25, 190, 350));
 		Insertion.add(Swing.NewLabel("Address", Color.white, 25, 190, 400));
 		Insertion.add(Swing.NewLabel("Priority", Color.white, 25, 190, 550));
@@ -66,7 +66,13 @@ public class Insertion
 						String strDate = dateFormat.format(date);
 
 						Call.insert(FirstName, LastName, date, Emergency.count()+1);
-						Emergency.insert(Patient.getId(FirstName, LastName), strDate, Address, latitude, longitude, priority.getSelectedIndex());
+						int idPatient=Patient.getId(FirstName, LastName);
+						if(idPatient==-1) 
+							{
+								idPatient=Patient.count()+1;
+								Patient.insert(FirstName, LastName, null, 0, 0, 0, null);
+							}
+						Emergency.insert(idPatient, strDate, Address, latitude, longitude, priority.getSelectedIndex());
 
 						Clear();
 					} catch (Exception e)

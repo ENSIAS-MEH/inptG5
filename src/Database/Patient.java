@@ -33,7 +33,7 @@ public class Patient
 			}
 		}
 		catch(Exception e) {System.out.println(e);}
-		return 0;
+		return -1;
 	}
 	
 	public static int count()

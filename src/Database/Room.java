@@ -23,7 +23,7 @@ public class Room
 				lenght=resultSet.getInt(1);
 			}
 			int[] ret = new int[lenght];
-			query="SELECT IdStaff FROM Room where isAvailable='true';";
+			query="SELECT IdRoom FROM Room where isAvailable='true';";
 			resultSet= statement.executeQuery(query);
 			int i=0;
 			while(resultSet.next())
