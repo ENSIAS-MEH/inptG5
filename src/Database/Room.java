@@ -10,25 +10,31 @@ public class Room
 {
 	static Connection connection=Main.getConnection();
 
-	public static boolean[] getAvailability()
+	public static int[] getAvailble()
 	{
-		boolean[] ret=new boolean[count()];
+		int lenght=0;
 		try 
 		{
-			String query="SELECT IsAvailable FROM Room;";
+			String query="SELECT count(*) FROM Room where isAvailable='true';";
 			Statement statement=(Statement) connection.createStatement();
 			ResultSet resultSet= statement.executeQuery(query);
-			int j=0;
+			if(resultSet.next())
+			{
+				lenght=resultSet.getInt(1);
+			}
+			int[] ret = new int[lenght];
+			query="SELECT IdStaff FROM Room where isAvailable='true';";
+			resultSet= statement.executeQuery(query);
+			int i=0;
 			while(resultSet.next())
 			{
-				if(resultSet.getString(1).equals("true"))
-					ret[j]=true;
-				else 
-					ret[j]=false;
+				ret[i]=resultSet.getInt(1);
+				i++;
 			}
+			return ret;
 		}
 		catch(Exception e) {System.out.println(e);}
-		return ret;
+		return null;
 	}
 	
 	public static int getFee(int IdRoom)
