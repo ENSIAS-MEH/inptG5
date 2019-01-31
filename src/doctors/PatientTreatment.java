@@ -1,0 +1,192 @@
+package doctors;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.JPanel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Desktop.Action;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTextField;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class PatientTreatment {
+
+	private JFrame frame;
+	private JTable table;
+	private JScrollPane scrollPane;
+	private JTable table_1;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PatientTreatment window = new PatientTreatment();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public PatientTreatment() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 1366,768);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.getContentPane().setLayout(null);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 719, 439, -707);
+		frame.getContentPane().add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(489, 11, 851, 297);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblName = new JLabel("Name :");
+		lblName.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblName.setBounds(33, 32, 89, 39);
+		panel.add(lblName);
+		
+		JLabel lblAge = new JLabel("Age    :");
+		lblAge.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblAge.setBounds(33, 82, 89, 39);
+		panel.add(lblAge);
+		
+		JLabel lblGender = new JLabel("Gender:");
+		lblGender.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblGender.setBounds(33, 136, 89, 39);
+		panel.add(lblGender);
+		
+		JLabel lblHeight = new JLabel("Height :");
+		lblHeight.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblHeight.setBounds(33, 186, 89, 39);
+		panel.add(lblHeight);
+		
+		JLabel lblWeight = new JLabel("Weight:");
+		lblWeight.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblWeight.setBounds(33, 236, 89, 39);
+		panel.add(lblWeight);
+		
+		JLabel label_3 = new JLabel("");
+		label_3.setFont(new Font("Stencil", Font.PLAIN, 20));
+		label_3.setBounds(279, 136, 89, 39);
+		panel.add(label_3);
+		
+		JLabel label_2 = new JLabel("");
+		label_2.setFont(new Font("Stencil", Font.PLAIN, 20));
+		label_2.setBounds(279, 69, 89, 39);
+		panel.add(label_2);
+		
+		JLabel label_4 = new JLabel("");
+		label_4.setFont(new Font("Stencil", Font.PLAIN, 20));
+		label_4.setBounds(279, 186, 89, 39);
+		panel.add(label_4);
+		
+		JLabel label_5 = new JLabel("");
+		label_5.setFont(new Font("Stencil", Font.PLAIN, 20));
+		label_5.setBounds(279, 236, 89, 39);
+		panel.add(label_5);
+		
+
+		JTextField textField = new JTextField(10);
+		AbstractAction action = new AbstractAction()
+		{
+		    @Override
+		    public void actionPerformed(ActionEvent e)
+		    {
+		       
+		    }
+		};
+
+		
+		
+		textField = new JTextField();
+	    
+		textField.setFont(new Font("Stencil", Font.PLAIN, 15));
+		textField.setBounds(194, 32, 189, 30);
+		panel.add(textField);
+		textField.setColumns(10);
+		textField.addActionListener( action );
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(489, 319, 851, 120);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblSymptoms = new JLabel("Symptoms:");
+		lblSymptoms.setFont(new Font("Stencil", Font.PLAIN, 23));
+		lblSymptoms.setBounds(21, 11, 152, 39);
+		panel_1.add(lblSymptoms);
+		
+		JLabel label_6 = new JLabel("");
+		label_6.setBounds(31, 61, 799, 110);
+		panel_1.add(label_6);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(489, 450, 852, 195);
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel lblHistory = new JLabel("History:");
+		lblHistory.setFont(new Font("Stencil", Font.PLAIN, 23));
+		lblHistory.setBounds(26, 11, 152, 39);
+		panel_2.add(lblHistory);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(165, 161, 578, -113);
+		panel_2.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		scrollPane_1.setViewportView(table_1);
+		
+		JButton btnNewButton = new JButton("Treat");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+		btnNewButton.setFont(new Font("Stencil", Font.ITALIC, 16));
+		btnNewButton.setBackground(Color.WHITE);
+		btnNewButton.setBounds(1160, 673, 166, 33);
+		frame.getContentPane().add(btnNewButton);
+		
+		JLabel label = new JLabel("");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		label.setBounds(0, 0, 1350, 730);
+		frame.getContentPane().add(label);
+		label.setIcon(new ImageIcon("pic/blue1.jpg"));
+		
+	}
+}
