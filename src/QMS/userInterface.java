@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
+
+import Database.HumanResource;
+import Database.Queue;
 import Database.Specialization;
 
 public class userInterface {
@@ -36,6 +40,7 @@ public class userInterface {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
+	patient p;
 
 
 	/**
@@ -204,7 +209,7 @@ public class userInterface {
 			public void mouseClicked(MouseEvent e) {
 				if (!(textField.getText().equals("") || textField_1.getText().equals("") ||
 						textField_2.getText().equals(""))) {
-				patient p = new patient(
+				p = new patient(
 						textField.getText(),  //first_name
 						textField_1.getText(),  //last_name
 						Integer.parseInt(textField_2.getText()), //age
@@ -370,6 +375,21 @@ public class userInterface {
 		consultation.add(lblChooseTheDoctors);
 		
 		JButton btnNewButton_1 = new JButton("Submit");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(Arrays.toString(HumanResource.getDoctorId(comboBox.getSelectedIndex())));
+				int[] waitingpatients = new int[HumanResource.getDoctorId(comboBox.getSelectedIndex()).length];
+				for (int i : HumanResource.getDoctorId(comboBox.getSelectedIndex())) {
+					for (int j = 0 ; j < waitingpatients.length ; j++) {
+					waitingpatients[j] = Queue.getWaitingPatientCount(i);
+					}
+				}
+				
+				System.out.println(Arrays.toString(waitingpatients));
+				
+			}
+		});
 		btnNewButton_1.setBackground(Color.ORANGE);
 		btnNewButton_1.setForeground(Color.DARK_GRAY);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));

@@ -1,6 +1,9 @@
 package QMS;
 
+import java.io.IOException;
 import java.sql.SQLException;
+
+import com.itextpdf.text.DocumentException;
 
 public class patient {
 
@@ -24,6 +27,17 @@ public class patient {
 		try {
 			Database.Patient.insert(f, l, g, a, w, h, b);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void print_receipt(String purpose) {
+		try {
+			WritePDF.createPdf("dest", "first", "last", 45 , "male", 1.85, 145, "o", "Scan");
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

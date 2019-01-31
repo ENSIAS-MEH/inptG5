@@ -17,7 +17,7 @@ public class WritePDF
      = "C:/itextExamples/sample.pdf";
 
 
- public static void createPdf(String dest, String f, String l, int a, String g, double h, double w, String b)
+ public static void createPdf(String dest, String f, String l, int a, String g, double h, double w, String b, String p)
 	    throws DocumentException, IOException {
      Document document = new Document();
      PdfWriter.getInstance(
@@ -33,7 +33,8 @@ public class WritePDF
      Paragraph gender = new Paragraph("gender : " + g); 
      Paragraph height = new Paragraph("height : " + h +" m"); 
      Paragraph width = new Paragraph("width : " + w +" Kg"); 
-     Paragraph blood_type = new Paragraph("blood type : " + b); 
+     Paragraph blood_type = new Paragraph("blood type : " + b);
+     Paragraph purpose = new Paragraph("purpose : " + p); 
 
      
      
@@ -54,6 +55,8 @@ public class WritePDF
      document.add(width);
      document.add( Chunk.NEWLINE );
      document.add(blood_type);
+     document.add( Chunk.NEWLINE );
+     document.add(purpose);
 
      
      document.close();
