@@ -12,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import java.awt.Font;
 import javax.swing.JButton;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop.Action;
 import java.awt.event.MouseAdapter;
@@ -143,6 +145,21 @@ public class PatientTreatment {
 		txtYourId.setBounds(638, 111, 168, 30);
 		panel.add(txtYourId);
 		txtYourId.setColumns(10);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 32, 423, 635);
+		frame.getContentPane().add(scrollPane);
+	
+		JTable table2 = new JTable();
+		table2.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				
+				
+		        
+		 				
+			}
+		});
+		table2.setFont(new Font("Simplified Arabic", Font.PLAIN, 20));
+		scrollPane.setViewportView(table);
 		
 		
 		
@@ -153,17 +170,13 @@ public class PatientTreatment {
 		    {
 		    	String p=(String)(textField.getText());
 			      String s[]=p.split("\\s+");
-			     try {
-					label_2.setText(Patient.getResultSet1(s[0],s[1])[4]);
-					label_3.setText(Patient.getResultSet1(s[0],s[1])[3]);
-					label_4.setText(Patient.getResultSet1(s[0],s[1])[6]);
-					label_5.setText(Patient.getResultSet1(s[0],s[1])[5]);
-					label_1.setText(Patient.getResultSet1(s[0],s[1])[7]);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} 
-			     PatientHistory.update(table,Queue.getResultSet(Integer.parseInt(txtYourId.getText())));
+			      label_2.setText(Patient.getResultSet1(s[0],s[1])[4]);
+				label_3.setText(Patient.getResultSet1(s[0],s[1])[3]);
+				label_4.setText(Patient.getResultSet1(s[0],s[1])[6]);
+				label_5.setText(Patient.getResultSet1(s[0],s[1])[5]);
+				label_1.setText(Patient.getResultSet1(s[0],s[1])[7]); 
+			    
+			     PatientHistory.update(table2,Queue.getResultSet(Integer.parseInt((String)(txtYourId.getText()))));
 			     PatientHistory.update(table,PatientHistory.getResultSetByPatient(s[0],s[1]));
 		    }
 		      
@@ -217,6 +230,18 @@ public class PatientTreatment {
 		
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
+
+		
+		JButton btnDconnexion = new JButton("D\u00E9connexion");
+		btnDconnexion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnDconnexion.setFont(new Font("Stencil", Font.ITALIC, 16));
+		btnDconnexion.setBackground(Color.WHITE);
+		btnDconnexion.setBounds(64, 673, 166, 33);
+		frame.getContentPane().add(btnDconnexion);
 		
 		JButton btnNewButton = new JButton("Treat");
 		btnNewButton.addMouseListener(new MouseAdapter() {
