@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -20,13 +22,19 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
+
+import com.itextpdf.text.DocumentException;
+
+import Database.PatientHistory;
+
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class treat {
 
-	private JFrame frame;
+	public JFrame frame;
 	private static Connection connection;
 	private JTextField textField;
 	private JTextField textField_1;
@@ -67,6 +75,7 @@ public class treat {
 	private void initialize() {
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
+		DateFormat format1=new SimpleDateFormat("yyyy/MM/dd");
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1366,768);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +88,7 @@ public class treat {
 		label_3.setText(format.format(date));
 		frame.getContentPane().add(label_3);
 		
-		JLabel lblId = new JLabel("id History:");
+		JLabel lblId = new JLabel("id Doctor:");
 		lblId.setFont(new Font("Stencil", Font.PLAIN, 20));
 		lblId.setBounds(38, 109, 123, 42);
 		frame.getContentPane().add(lblId);
@@ -128,6 +137,7 @@ public class treat {
 		textField_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		textField_1.setColumns(10);
 		textField_1.setBounds(826, 162, 191, 42);
+		textField_1.setText(label_3.getText());
 		frame.getContentPane().add(textField_1);
 		
 		textField_2 = new JTextField();
@@ -148,6 +158,23 @@ public class treat {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				JOptionPane.showMessageDialog(null,"traité avec succès");
+				
+				try {
+					CreatePdf.createPdf("1",(String)(textField.getText()),(String)(textArea.getText()),(String)(textArea_1.getText()),(String)(textField_1.getText()),(String)(textField_2.getText()));
+				} catch (DocumentException | IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
+					PatientHistory.insert(1,Integer.parseInt(((String)(textField.getText()))),(String)(textArea.getText()),(String)(textArea_1.getText()),date,Integer.parseInt((String)(textField_2.getText())));
+				} catch (NumberFormatException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				 PatientHistory.update(table,PatientHistory.getResultSetByPatient1(1));
+				
+				
 			}
 		});
 		btnConfirmer.setFont(new Font("Stencil", Font.PLAIN, 20));
@@ -158,6 +185,11 @@ public class treat {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				PatientTreatment p=new PatientTreatment();
+				frame.dispose();
+				p.frame.setVisible(true);
+				
+				
 			}
 		});
 		btnRetour.setFont(new Font("Stencil", Font.PLAIN, 20));

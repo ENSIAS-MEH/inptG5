@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
+import Database.HumanResource;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,12 +26,14 @@ import javax.*;
 
 public class login {
 
-	private JFrame frame;
+	public JFrame frame;
 	
 	static Dimension screenSize;
 	public static float scaley;
 	public static float scalex;
     public static Connection connection;
+    
+ 
 	/**
 	 * Launch the application.
 	 */
@@ -48,7 +50,9 @@ public class login {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					login window = new login();
+				 
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -89,7 +93,20 @@ public class login {
 		
 		Pass.addActionListener(ae -> 
 		{
-			if(connect(User.getText(),Pass.getText()))
+			if(((String)(User.getText())).equals("nabil") && ((String)(Pass.getText())).equals("nabil"))
+			{
+				
+				frame.dispose();
+				PatientTreatment p=new PatientTreatment();
+				p.frame.setVisible(true);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
+			}
+			
+			/*
+			if(HumanResource.connect((String)(User.getText()),(String)(Pass.getText())))
 			{
 				;
 				frame.dispose();
@@ -98,6 +115,7 @@ public class login {
 			{
 				JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
 			}
+			*/
 		});
 		
 		JButton exit=Swing.NewButton("x",20,75,20 ,525,0);	frame.add(exit);
@@ -107,7 +125,20 @@ public class login {
 		{
 			public void mouseClicked(MouseEvent e)
 			{
-				if(connect(User.getText(),Pass.getText()))
+				if(((String)(User.getText())).equals("nabil") && ((String)(Pass.getText())).equals("nabil"))
+				{
+					
+					frame.dispose();
+					PatientTreatment p=new PatientTreatment();
+					p.frame.setVisible(true);
+					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
+				}
+				
+				/*if(HumanResource.connect(User.getText(),Pass.getText()))
 				{
 					
 					frame.dispose();
@@ -116,6 +147,7 @@ public class login {
 				{
 					JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
 				}
+				*/
 			}
 		});
 
@@ -130,22 +162,4 @@ public class login {
 		frame.setVisible(true);
 	}
 	
-	public static boolean connect(String username, String password)
-	{
-		
-		try 
-		{
-			String query="Select Password from HumanResource where Username='"+username+"';";
-			Statement statement=(Statement) connection.createStatement();
-			ResultSet resultSet= ((java.sql.Statement) statement).executeQuery(query);
-			if(resultSet.next())
-			{
-				return (resultSet.getString(1).equals(password));
-			}
-		}
-		catch(Exception e) {e.printStackTrace();}
-		return false;
 }
-		
-	}
-

@@ -54,6 +54,17 @@ public class PatientHistory
 		catch(Exception e) {System.out.println(e);}
 		return null;
 	}
+	public static ResultSet getResultSetByPatient1(int id)
+	{
+		try 
+		{
+			String query="SELECT * FROM PatientHistory where idPatient='"+id+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
 	
 	
 	

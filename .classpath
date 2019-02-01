@@ -9,5 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="res/lib/sqlite-jdbc-3.23.1.jar"/>
 	<classpathentry kind="lib" path="pic/rs2xml.jar"/>
+	<classpathentry kind="lib" path="pic/itextpdf-5.5.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

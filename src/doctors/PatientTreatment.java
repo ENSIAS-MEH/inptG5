@@ -1,7 +1,10 @@
 package doctors;
 
 import java.awt.EventQueue;
+import java.text.*;
+import java.util.*;
 import Database.*;
+import Database.Queue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,7 +36,7 @@ import java.awt.event.KeyEvent;
 
 public class PatientTreatment {
 
-	private JFrame frame;
+    public JFrame frame;
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JTable table_1;
@@ -170,14 +173,14 @@ public class PatientTreatment {
 		    {
 		    	String p=(String)(textField.getText());
 			      String s[]=p.split("\\s+");
-			      label_2.setText(Patient.getResultSet1(s[0],s[1])[4]);
-				label_3.setText(Patient.getResultSet1(s[0],s[1])[3]);
-				label_4.setText(Patient.getResultSet1(s[0],s[1])[6]);
-				label_5.setText(Patient.getResultSet1(s[0],s[1])[5]);
-				label_1.setText(Patient.getResultSet1(s[0],s[1])[7]); 
-			    
+			       
+			        label_2.setText(Patient.getResultSet1(s[0],s[1])[4]);
+					label_3.setText(Patient.getResultSet1(s[0],s[1])[3]);
+					label_4.setText(Patient.getResultSet1(s[0],s[1])[6]);
+					label_5.setText(Patient.getResultSet1(s[0],s[1])[5]);
+					label_1.setText(Patient.getResultSet1(s[0],s[1])[7]); 
 			     PatientHistory.update(table2,Queue.getResultSet(Integer.parseInt((String)(txtYourId.getText()))));
-			     PatientHistory.update(table,PatientHistory.getResultSetByPatient(s[0],s[1]));
+			     PatientHistory.update(table,PatientHistory.getResultSetByPatient1(1));
 		    }
 		      
 		    
@@ -236,6 +239,9 @@ public class PatientTreatment {
 		btnDconnexion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				login l=new login();
+				l.frame.setVisible(true);
 			}
 		});
 		btnDconnexion.setFont(new Font("Stencil", Font.ITALIC, 16));
@@ -247,7 +253,9 @@ public class PatientTreatment {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				frame.dispose();
+				treat t=new treat();
+				t.frame.setVisible(true);
 			}
 		});
 		btnNewButton.setFont(new Font("Stencil", Font.ITALIC, 16));
