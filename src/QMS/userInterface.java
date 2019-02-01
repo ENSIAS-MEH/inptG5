@@ -67,6 +67,36 @@ public class userInterface {
 	public userInterface() {
 		initialize();
 	}
+	
+	public int[] min(int[] array) {
+	      int min = array[0];
+	      int[] ret=new int[2];
+	      for(int i=0; i<array.length; i++ ) {
+	         if(array[i]<min) {
+	            ret[0] = array[i];
+	            ret[1]=i;
+	         }
+	      }
+	      return ret;
+	   }
+	
+	public void prnt(int IdSpecialty, String purpose) {
+		int[] doctorID=HumanResource.getDoctorId(IdSpecialty);
+		int[] waitingpatients = new int[HumanResource.getDoctorId(IdSpecialty).length];
+		int areWaiting = Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]]);
+
+		for (int i : HumanResource.getDoctorId(IdSpecialty)) {
+			for (int j = 0 ; j < waitingpatients.length ; j++) {
+			waitingpatients[j] = Queue.getWaitingPatientCount(i);
+			}
+		}
+		
+		System.out.println((Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])) + "are waiting for the service");
+		System.out.println("the doctor is  : " + HumanResource.getName(doctorID[min(waitingpatients)[1]]));
+		patient.print_receipt(purpose, 
+				HumanResource.getName(doctorID[min(waitingpatients)[1]]), 
+				(Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])));
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -270,6 +300,7 @@ public class userInterface {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				prnt(12, "Diagnostic");
 				layeredPane.removeAll();
 				layeredPane.add(printing);
 				layeredPane.repaint();
@@ -286,6 +317,7 @@ public class userInterface {
 		btnScan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				prnt(12, "Scan");
 				layeredPane.removeAll();
 				layeredPane.add(printing);
 				layeredPane.repaint();
@@ -302,6 +334,7 @@ public class userInterface {
 		btnCertificate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				prnt(12, "Medical Certificate");
 				layeredPane.removeAll();
 				layeredPane.add(printing);
 				layeredPane.repaint();
@@ -318,6 +351,7 @@ public class userInterface {
 		btnVaccine.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				prnt(12, "Vaccine");
 				layeredPane.removeAll();
 				layeredPane.add(printing);
 				layeredPane.repaint();
@@ -378,16 +412,28 @@ public class userInterface {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(Arrays.toString(HumanResource.getDoctorId(comboBox.getSelectedIndex())));
+				int[] doctorID=HumanResource.getDoctorId(comboBox.getSelectedIndex());
+				//System.out.println(Arrays.toString(test));
 				int[] waitingpatients = new int[HumanResource.getDoctorId(comboBox.getSelectedIndex()).length];
+				int areWaiting = Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]]);
+
 				for (int i : HumanResource.getDoctorId(comboBox.getSelectedIndex())) {
 					for (int j = 0 ; j < waitingpatients.length ; j++) {
 					waitingpatients[j] = Queue.getWaitingPatientCount(i);
 					}
 				}
+				//System.out.println(Arrays.toString(waitingpatients));
+				//System.out.println("the minimum is : " + min(waitingpatients)[0]);
 				
-				System.out.println(Arrays.toString(waitingpatients));
-				
+				System.out.println((Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])) + "are waiting for the service");
+				System.out.println("the doctor is  : " + HumanResource.getName(doctorID[min(waitingpatients)[1]]));
+				patient.print_receipt("Consult Doctors", 
+						HumanResource.getName(doctorID[min(waitingpatients)[1]]), 
+						(Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])));
+				layeredPane.removeAll();
+				layeredPane.add(printing);
+				layeredPane.repaint();
+				layeredPane.revalidate();
 			}
 		});
 		btnNewButton_1.setBackground(Color.ORANGE);

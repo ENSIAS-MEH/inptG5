@@ -7,13 +7,13 @@ import com.itextpdf.text.DocumentException;
 
 public class patient {
 
-	String first_name;
-	String last_name;
-	int age;
-	double weight;
-	double height;
-	String gender;
-	String blood_type;
+	static String first_name;
+	static String last_name;
+	static int age;
+	static double weight;
+	static double height;
+	static String gender;
+	static String blood_type;
 	
 	public patient(String f, String l, int a, String g, double h, double w, String b) {
 		
@@ -31,9 +31,12 @@ public class patient {
 			e.printStackTrace();
 		}
 	}
-	public static void print_receipt(String purpose) {
+
+	public static void print_receipt(String purpose, String doctor, int waiting) {
 		try {
-			WritePDF.createPdf("dest", "first", "last", 45 , "male", 1.85, 145, "o", "Scan");
+			WritePDF.createPdf("C:/Users/Rxs/Desktop/receipt.pdf", 
+					first_name, last_name, age , gender, height, weight, blood_type,
+					purpose, doctor, waiting);
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
