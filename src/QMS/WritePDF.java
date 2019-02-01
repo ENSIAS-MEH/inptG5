@@ -17,57 +17,33 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import Database.Queue;
 
+/**
+ * this class allows us to create a receipt for the patient in a PDF format
+ * @author RAIS Haythem
+ *
+ */
 public class WritePDF
 {
 	 public static final String dest
      = "C:/itextExamples/sample.pdf";
 
 
- public static void createPdf(String dest, String f, String l, int a, String g, double h, double w, String b, String p)
-	    throws DocumentException, IOException {
-     Document document = new Document();
-     PdfWriter.getInstance(
-     document, new FileOutputStream(dest));
-     document.open();
-     
-     Paragraph preface = new Paragraph("Patient Receipt"); 
-     preface.setAlignment(Element.ALIGN_CENTER);
-     
-     Paragraph first_name = new Paragraph("first name : " + f); 
-     Paragraph last_name = new Paragraph("last name : " + l); 
-     Paragraph age = new Paragraph("age : " + a); 
-     Paragraph gender = new Paragraph("gender : " + g); 
-     Paragraph height = new Paragraph("height : " + h +" m"); 
-     Paragraph width = new Paragraph("width : " + w +" Kg"); 
-     Paragraph blood_type = new Paragraph("blood type : " + b);
-     Paragraph purpose = new Paragraph("purpose : " + p); 
-
-     
-     
-     document.add(preface);
-     document.add( Chunk.NEWLINE );
-     document.add( Chunk.NEWLINE );
-     document.add( Chunk.NEWLINE );
-     document.add(first_name);
-     document.add( Chunk.NEWLINE );
-     document.add(last_name);
-     document.add( Chunk.NEWLINE );
-     document.add(age);
-     document.add( Chunk.NEWLINE );
-     document.add(gender);
-     document.add( Chunk.NEWLINE );
-     document.add(height);
-     document.add( Chunk.NEWLINE );
-     document.add(width);
-     document.add( Chunk.NEWLINE );
-     document.add(blood_type);
-     document.add( Chunk.NEWLINE );
-     document.add(purpose);
-
-     
-     document.close();
- }
-	
+/**
+ *  this is the function that allows to create a PDF with the help of iText library that has its own language to create the PDF content
+ * @param dest the destination where the PDF file will be saved after being created
+ * @param f the first_name of the patient
+ * @param l the last_name of the patient
+ * @param a the age of the patient
+ * @param g the gender of the patient
+ * @param h the height of the patient
+ * @param w the weight of the patient
+ * @param b the blood_type of the patient
+ * @param p the purpose of the patient's visit to the Hospital
+ * @param d the doctor who will assist the patient, and who has the lesser number of waiting patients
+ * @param waiting the number of the waiting patients who came before the current patient
+ * @throws DocumentException
+ * @throws IOException
+ */
  public static void createPdf(String dest, String f, String l, int a, 
 		 String g, double h, double w, String b, String p, String d, int waiting)
 		    throws DocumentException, IOException {

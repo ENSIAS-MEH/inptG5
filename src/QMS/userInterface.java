@@ -5,6 +5,7 @@ package QMS;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
@@ -25,6 +26,21 @@ import Database.HumanResource;
 import Database.Queue;
 import Database.Specialization;
 
+/**
+ * the window that will be displayed to the user, it represents the interface between him and the system
+ * SWING library that was used to design this graphical user interface 
+ * @author RAIS Haythem
+ * @welcome the first panel that will be shown to the user, it allows him to confirm that he is a new patient.
+ * @info the second panel that will be show to the user, it allows him to enter his data (first_name, age, ...),
+ * this data will be inserted in the database and printed in the receipt.
+ * @purpose this panel allows the user to decide why he visited the Hospital 
+ * (to consult doctors, to perform a scan, to get a medical certificate ...)
+ * @consultation if the patient has chosen to consult doctors,
+ *  this panel will be shown to him to choose the specialty of the doctors that he is looking for,
+ *  and finally he will be assigned to the doctor having this specialty and that has the lesser number of waiting patients.
+ * @printing the final panel that will be shown to the patient, 
+ * in this step the receipt is saved in it's destination and it's ready to be printed
+ */
 public class userInterface {
 
 	public static JPanel printing;
@@ -68,6 +84,14 @@ public class userInterface {
 		initialize();
 	}
 	
+	/** 
+	 * this function allows to calculate the minimum of the integers in an array and its index
+	 * we will need this function to retrieve the doctor with the lesser number of waiting patients
+	 * the minimum represents the smallest number of waiting patients of all the doctors in one specialty
+	 * the index represents the index of the doctorID of this doctor in an array that contains all the doctors that have the same specialty
+	 * @param array the integers array that will be given as an argument to the function in order to get its minimum
+	 * @return the function returns an array that contains the minimum and its index in the array.
+	 */
 	public int[] min(int[] array) {
 	      int min = array[0];
 	      int[] ret=new int[2];
@@ -80,6 +104,13 @@ public class userInterface {
 	      return ret;
 	   }
 	
+	/**
+	 * this function calls the the function that prints the receipt for the patient
+	 * it determine the doctor that has the lesser number of waiting patients
+	 * and the number of those patients waiting for this specific doctor
+	 * @param IdSpecialty the specialty that the patient is looking for
+	 * @param purpose the purpose of the patient's visit to the Hospital
+	 */
 	public void prnt(int IdSpecialty, String purpose) {
 		int[] doctorID=HumanResource.getDoctorId(IdSpecialty);
 		int[] waitingpatients = new int[HumanResource.getDoctorId(IdSpecialty).length];
@@ -91,8 +122,6 @@ public class userInterface {
 			}
 		}
 		
-		System.out.println((Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])) + "are waiting for the service");
-		System.out.println("the doctor is  : " + HumanResource.getName(doctorID[min(waitingpatients)[1]]));
 		patient.print_receipt(purpose, 
 				HumanResource.getName(doctorID[min(waitingpatients)[1]]), 
 				(Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])));
@@ -128,18 +157,23 @@ public class userInterface {
 				layeredPane.revalidate();
 			}
 		});
-		btnImANew.setForeground(Color.DARK_GRAY);
-		btnImANew.setBackground(Color.CYAN);
+		btnImANew.setForeground(new Color(34,159,158));
+		btnImANew.setBackground(Color.WHITE);
 		btnImANew.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnImANew.setBounds(284, 207, 216, 48);
 		welcome.add(btnImANew);
 		
 		JLabel lblWelcomeToOur = new JLabel("Welcome to our Hospital");
-		lblWelcomeToOur.setForeground(Color.DARK_GRAY);
+		lblWelcomeToOur.setForeground(Color.WHITE);
 		lblWelcomeToOur.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeToOur.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblWelcomeToOur.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblWelcomeToOur.setBounds(143, 90, 497, 40);
 		welcome.add(lblWelcomeToOur);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\welcome.jpg"));
+		lblNewLabel_3.setBounds(0, 0, 784, 462);
+		welcome.add(lblNewLabel_3);
 		
 		info = new JPanel();
 		layeredPane.add(info, "name_272728495836524");
@@ -239,6 +273,7 @@ public class userInterface {
 			public void mouseClicked(MouseEvent e) {
 				if (!(textField.getText().equals("") || textField_1.getText().equals("") ||
 						textField_2.getText().equals(""))) {
+					if (!(textField_4.getText().equals("") || textField_5.getText().equals(""))) {
 				p = new patient(
 						textField.getText(),  //first_name
 						textField_1.getText(),  //last_name
@@ -247,6 +282,34 @@ public class userInterface {
 						Double.parseDouble(textField_4.getText()),  //height
 						Double.parseDouble(textField_5.getText()),   //weight
 						textField_6.getText());  //blood_type
+					} else if (textField_4.getText().equals("") && !(textField_5.getText().equals(""))) {
+						p = new patient(
+								textField.getText(),  //first_name
+								textField_1.getText(),  //last_name
+								Integer.parseInt(textField_2.getText()), //age
+								comboBox_1.getSelectedItem().toString(),  //gender
+								Double.parseDouble("0.00"),  //height
+								Double.parseDouble(textField_5.getText()),   //weight
+								textField_6.getText());  //blood_type
+					}else if (!(textField_4.getText().equals("")) && textField_5.getText().equals("")) {
+						p = new patient(
+								textField.getText(),  //first_name
+								textField_1.getText(),  //last_name
+								Integer.parseInt(textField_2.getText()), //age
+								comboBox_1.getSelectedItem().toString(),  //gender
+								Double.parseDouble(textField_4.getText()),  //height
+								Double.parseDouble("0.00"),   //weight
+								textField_6.getText());  //blood_type
+					}else if (textField_4.getText().equals("") && textField_5.getText().equals("")) {
+						p = new patient(
+								textField.getText(),  //first_name
+								textField_1.getText(),  //last_name
+								Integer.parseInt(textField_2.getText()), //age
+								comboBox_1.getSelectedItem().toString(),  //gender
+								Double.parseDouble("0.00"),  //height
+								Double.parseDouble("0.00"),   //weight
+								textField_6.getText());  //blood_type
+					}
 				
 				layeredPane.removeAll();
 				layeredPane.add(purpose);
@@ -291,6 +354,11 @@ public class userInterface {
 		info.add(comboBox_1);
 		comboBox_1.addItem("male");
 		comboBox_1.addItem("female");
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\info.jpg"));
+		lblNewLabel_4.setBounds(0, 0, 784, 462);
+		info.add(lblNewLabel_4);
 		
 		purpose = new JPanel();
 		layeredPane.add(purpose, "name_273113949385671");
@@ -387,6 +455,11 @@ public class userInterface {
 		btnConsultDoctors.setBounds(281, 200, 221, 62);
 		purpose.add(btnConsultDoctors);
 		
+		JLabel lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\purpose.jpg"));
+		lblNewLabel_5.setBounds(0, 0, 784, 462);
+		purpose.add(lblNewLabel_5);
+		
 		consultation = new JPanel();
 		layeredPane.add(consultation, "name_273497060914089");
 		consultation.setLayout(null);
@@ -413,7 +486,6 @@ public class userInterface {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int[] doctorID=HumanResource.getDoctorId(comboBox.getSelectedIndex());
-				//System.out.println(Arrays.toString(test));
 				int[] waitingpatients = new int[HumanResource.getDoctorId(comboBox.getSelectedIndex()).length];
 				int areWaiting = Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]]);
 
@@ -422,11 +494,6 @@ public class userInterface {
 					waitingpatients[j] = Queue.getWaitingPatientCount(i);
 					}
 				}
-				//System.out.println(Arrays.toString(waitingpatients));
-				//System.out.println("the minimum is : " + min(waitingpatients)[0]);
-				
-				System.out.println((Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])) + "are waiting for the service");
-				System.out.println("the doctor is  : " + HumanResource.getName(doctorID[min(waitingpatients)[1]]));
 				patient.print_receipt("Consult Doctors", 
 						HumanResource.getName(doctorID[min(waitingpatients)[1]]), 
 						(Queue.getWaitingPatientCount(doctorID[min(waitingpatients)[1]])));
@@ -441,6 +508,11 @@ public class userInterface {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton_1.setBounds(307, 288, 170, 46);
 		consultation.add(btnNewButton_1);
+		
+		JLabel lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\consultation.jpg"));
+		lblNewLabel_6.setBounds(0, 0, 784, 462);
+		consultation.add(lblNewLabel_6);
 		
 		printing = new JPanel();
 		layeredPane.add(printing, "name_276050841952620");
@@ -470,11 +542,16 @@ public class userInterface {
 				layeredPane.revalidate();
 			}
 		});
-		btnNewButton_3.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_3.setBackground(new Color(133,203,192));
 		btnNewButton_3.setForeground(Color.DARK_GRAY);
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton_3.setBounds(242, 286, 299, 48);
 		printing.add(btnNewButton_3);
+		
+		JLabel lblNewLabel_7 = new JLabel("");
+		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\print.jpg"));
+		lblNewLabel_7.setBounds(0, 0, 784, 462);
+		printing.add(lblNewLabel_7);
 
 	}
 }
