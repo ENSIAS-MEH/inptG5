@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
@@ -29,8 +30,13 @@ import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
 
-import ECM.Insertion;
+import ECM.Insert;
 
+/************************************************************
+ * Map is used to Initialize the panel Map<BR>
+ * 
+ * @author SouhailMaraoui
+ *****************************/
 public class Map
 {
 	static CompoundPainter<JXMapViewer> painter;
@@ -41,6 +47,13 @@ public class Map
 	public static int zoom;
 	public static double lat, lon;
 
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Initialize the panel Map where we can view the map, move accross it and interact with it.
+	 * 
+	 *  @return The JxMapview panel.
+	 *****************************/
 	public static JPanel newMap()
 	{
 		jXMapKit = new JXMapKit();
@@ -75,18 +88,19 @@ public class Map
 					GeoPosition geo = mapViewer.convertPointToGeoPosition(p);
 					lat = geo.getLatitude();
 					lon = geo.getLongitude();
-					if(Insertion.currentFrame)
+					if(Insert.currentFrame)
 					{
 						double[] info= {lat,lon,mapViewer.getZoom()-18};
 						goTo(info);
 						
-						Insertion.address.setText(Geolocalisation.getAddress(lat,lon));
-						Insertion.canInsert=true;
+						Insert.address.setText(Geolocalisation.getAddress(lat,lon));
+						Insert.canInsert=true;
 						
-						Insertion.latitude=lat;
-						Insertion.longitude=lon;
+						Insert.latitude=lat;
+						Insert.longitude=lon;
 						
-						Insertion.BInsert.setBackground(new Color(0, 200, 200));
+						Insert.BInsert.setIcon(new ImageIcon("res/ECM/Insert/InsertIcon.png"));
+						Insert.BInsert.setBackground(new Color(0, 200, 200));
 					}
 				}
 			}
@@ -94,6 +108,13 @@ public class Map
 		return mapViewer;
 	}
 
+
+	/**
+	 * Method.<BR>
+	 * Go to a location.
+	 * 
+	 * @param info The coordinate of the location we want to go to.
+	 */
 	public static void goTo(double[] info)
 	{
 		int zoom = 18 - (int) (info[2]);
@@ -112,6 +133,12 @@ public class Map
 		updateWindowTitle(mapViewer);
 	}
 
+	/**
+	 * Method.<BR>
+	 * Update this panel lat and lon according to where the map is positioned at.
+	 * 
+	 * @param mapViewer The map to use.
+	 */
 	protected static void updateWindowTitle(JXMapViewer mapViewer)
 	{
 		lat = mapViewer.getCenterPosition().getLatitude();
@@ -119,6 +146,11 @@ public class Map
 		zoom = mapViewer.getZoom();
 	}
 	
+	/**
+	 * Method.<BR>
+	 * Clear the waypoint from the map.
+	 * 
+	 */
 	public static void deleteWaypoint()
 	{
 		painter=null;

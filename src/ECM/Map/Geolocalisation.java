@@ -12,6 +12,15 @@ import org.w3c.dom.NodeList;
 
 public class Geolocalisation
 {
+	/**
+	 * Method.<BR>
+	 * Reverse GeoCoding : back coding of the point location to a readable address.
+	 * 
+	 * @param lat The latitude of the point
+	 * @param lon The longitude of the point
+	 *
+	 * @return The full adress.
+	 */
 	public static String getAddress(double lat,double lon)
 	{
 		String address ="";
@@ -64,6 +73,14 @@ public class Geolocalisation
 		return address;
 	}
 	
+	/**
+	 * Method.<BR>
+	 * Only take the characters from ASCII code into consideration.
+	 * 
+	 * @param line The line we want to change.
+	 *
+	 * @return The string containing only ASCII characters.
+	 */
 	public static String CharCoding(String line)
 	{
 		String ret = "";

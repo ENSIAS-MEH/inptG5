@@ -11,6 +11,11 @@ import Database.HumanResource;
 
 import UserInterface.Swing;
 
+/************************************************************
+ * Login contain the first frame we see and use to log in.<BR>
+ * 
+ * @author SouhailMaraoui
+ *****************************/
 public class Login
 {
 	
@@ -30,6 +35,11 @@ public class Login
 		new Login();
 	}
 	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * The actual login frame.
+	 *****************************/
 	public Login()
 	{
 		JFrame frame = new JFrame();	
@@ -68,6 +78,7 @@ public class Login
 		
 		JButton exit=Swing.NewButton("x",20,75,20 ,525,0);	frame.add(exit);
 		JButton login=Swing.NewButton("Connect",20,180,40,300,175);	frame.add(login);
+		login.setIcon(new ImageIcon("res/ECM/Login/LoginIcon.png"));
 		
 		login.addMouseListener(new MouseAdapter()
 		{
@@ -96,6 +107,13 @@ public class Login
 		frame.setVisible(true);
 	}
 	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * To check if the entered username and password are correct or not.
+	 * 
+	 *  @return Boolean whether we could connect or not.
+	 *****************************/
 	boolean connect(JTextField User,JPasswordField Pass)
 	{
 		username=User.getText();
@@ -103,6 +121,13 @@ public class Login
 		return HumanResource.connect(username, password);
 	}
 	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Username getter.
+	 * 
+	 *  @return the username entered.
+	 *****************************/
 	public String getUsername()
 	{
 		return username;

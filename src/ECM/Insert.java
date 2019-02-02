@@ -14,7 +14,12 @@ import Database.Patient;
 import UserInterface.Swing;
 import ECM.Map.Map;
 
-public class Insertion
+/************************************************************
+ * Insert is used to Initialize the panel Insert<BR>
+ * 
+ * @author SouhailMaraoui
+ *****************************/
+public class Insert
 {
 	public static JButton BInsert;
 	public static JTextField firstName, lastName, phone, address;
@@ -24,6 +29,15 @@ public class Insertion
 
 	public static JPanel Insertion = new JPanel();
 
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Initialize the panel Insert where we can insert a new emergency.
+	 * 
+	 * 	@param username 	the username of the current connected user.
+	 * 
+	 *  @return Jpanel containing all the buttons, labels .. of the Insert panel
+	 *****************************/
 	public static JPanel Init(String username)
 	{
 		currentFrame = true;
@@ -52,6 +66,7 @@ public class Insertion
 
 		Insertion.add(BInsert);
 		JButton Clear = Swing.NewButton("Clear", Color.gray, 15, 200, 40, 520, 700);
+		Clear.setIcon(new ImageIcon("res/ECM/Insert/ClearIcon.png"));
 		Insertion.add(Clear);
 
 		BInsert.addMouseListener(new MouseAdapter()
@@ -81,6 +96,8 @@ public class Insertion
 								}
 							Emergency.insert(idPatient, strDate, Address, latitude, longitude, priority.getSelectedIndex()+1);
 
+							BInsert.setBackground(Color.GRAY);
+							BInsert.setIcon(null);
 							Clear();
 						} catch (Exception e)
 						{
@@ -112,6 +129,7 @@ public class Insertion
 		});
 
 		JButton Back = Swing.NewButton("Return", Color.black, 15, 150, 40, 410, 850);
+		Back.setIcon(new ImageIcon("res/ECM/Insert/ReturnIcon.png"));
 		Insertion.add(Back);
 
 		Back.addMouseListener(new MouseAdapter()
@@ -128,11 +146,17 @@ public class Insertion
 			}
 		});
 
-		Insertion.add(Swing.NewImage("res/ECM/Home/Background.png", 960, 1080, 0, 0));
+		Insertion.add(Swing.NewImage("res/ECM/Insert/Background.png", 1920, 1080, 0, 0));
 		Insertion.setLayout(null);
 		return Insertion;
 	}
 
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Clear inserted information.
+	 * 
+	 *****************************/
 	public static void Clear()
 	{
 		firstName.setText("");
@@ -140,7 +164,14 @@ public class Insertion
 		phone.setText("");
 		address.setText("");
 	}
-
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Check if a string is an integer or not.
+	 * 
+	 * 	@param str 	The string we want to check.
+	 *  @return is the string entered true or false.
+	 *****************************/
 	public static boolean isInt(String str)
 	{
 		if (str.length() > 0)

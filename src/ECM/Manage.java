@@ -2,7 +2,9 @@ package ECM;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
@@ -20,6 +22,11 @@ import Database.StaffUse;
 import ECM.Map.Map;
 import UserInterface.Swing;
 
+/************************************************************
+ * Manage is used to Initialize the panel Manage<BR>
+ * 
+ * @author SouhailMaraoui
+ *****************************/
 public class Manage
 {
 	public static JPanel Manage;
@@ -35,6 +42,18 @@ public class Manage
 	static JLabel ambText,driverText,roomText,physicianText,nurseText;
 	static JComboBox<String> useAmb, useDriver, useRoom, usePhysician, useNurse;
 
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Initialize the panel Manage where we can manage already entered emergencies.
+	 * 
+	 * 	@param username 	the username of the current connected user.
+	 * 	@param stage 		the tab we want to view in the manage panel.
+	 * 
+	 *  @return Jpanel containing all the buttons, labels .. of the Manage panel
+	 *****************************/
 	public static JPanel Init(String username, int stage)
 	{
 		Manage = new JPanel();
@@ -50,15 +69,16 @@ public class Manage
 		table.setForeground(Color.DARK_GRAY);
 		table.setFont(new Font("Century Gothic", Font.PLAIN, (int) (scalex * 14)));
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds((int) (scalex * 50), (int) (scaley * 300), (int) (scalex * 860), (int) (scaley * 400));
+		scrollPane.setBounds((int) (scalex * 150), (int) (scaley * 150), (int) (scalex * 1625), (int) (scaley * 675));
 		Manage.add(scrollPane);
 		scrollPane.setViewportView(table);
 		ResultSet rs = Emergency.getResultSetByStatus(status);
 		table.setModel(DbUtils.resultSetToTableModel(rs));
 
 		//--------------Waiting------------------------------------------------------------------------------------------------------
-		BWaiting = Swing.NewButton("Waiting", new Color(0,200,200), 17, 200, 40, 180, 250);		Manage.add(BWaiting);
-		
+		BWaiting = Swing.NewButton("Waiting", new Color(0,200,200), 17, 200, 40, 150, 110);		Manage.add(BWaiting);
+		BWaiting.setIcon(new ImageIcon("res/ECM/Manage/WaitingIcon.png"));
+
 		int[] availableAmbId=Ambulance.getAvailble();
 		String[] availableAmb=new String[availableAmbId.length];
 		for(int i=0;i<availableAmbId.length;i++) availableAmb[i]=String.valueOf(availableAmbId[i]);
@@ -67,18 +87,19 @@ public class Manage
 		String[] availableDriver=new String[availableDriverId.length];
 		for(int i=0;i<availableDriverId.length;i++) availableDriver[i]=String.valueOf(availableDriverId[i]);
 		
-		ambText=Swing.NewLabel("Ambulance Id to use",Color.white, 20, 200, 725);		Manage.add(ambText);
-		driverText=Swing.NewLabel("Driver Id to use",Color.white, 20, 550, 725);		Manage.add(driverText);
+		ambText=Swing.NewLabel("Ambulance Id to use",Color.white, 20, 200,850);		Manage.add(ambText);
+		driverText=Swing.NewLabel("Driver Id to use",Color.white, 20, 600,850);		Manage.add(driverText);
 		
-		useAmb =Swing.NewComboBox(availableAmb,50,30, 405, 725); Manage.add(useAmb);
-		useDriver =Swing.NewComboBox(availableDriver,50,30, 700, 725); Manage.add(useDriver);
+		useAmb =Swing.NewComboBox(availableAmb,50,30, 410, 850); Manage.add(useAmb);
+		useDriver =Swing.NewComboBox(availableDriver,50,30, 780, 850); Manage.add(useDriver);
 		
-		BProcess = Swing.NewButton("Process", Color.GRAY, 17, 200, 40, 700, 800);
+		BProcess = Swing.NewButton("Process", Color.GRAY, 17, 200, 40, 500, 850);
 		if(stage!=1)setWaitingElementVisibilty(false);
 
 		//--------------InProgress---------------------------------------------------------------------------------------------------
-		BInProgress = Swing.NewButton("In progress", Color.GRAY, 17, 200, 40, 380, 250);Manage.add(BInProgress);
-		
+		BInProgress = Swing.NewButton("In progress", Color.GRAY, 17, 200, 40, 350, 110);Manage.add(BInProgress);
+		BInProgress.setIcon(new ImageIcon("res/ECM/Manage/ProgressIcon.png"));
+
 		int[] availableRoomId=Room.getAvailble();
 		String[] availableRoom=new String[availableRoomId.length];
 		for(int i=0;i<availableRoomId.length;i++) availableRoom[i]=String.valueOf(availableRoomId[i]);
@@ -91,26 +112,27 @@ public class Manage
 		String[] availableNurse=new String[availableNurseId.length];
 		for(int i=0;i<availableNurseId.length;i++) availableNurse[i]=String.valueOf(availableNurseId[i]);
 		
-		roomText=Swing.NewLabel("Room Id",Color.white, 20, 200, 725);		Manage.add(roomText);
-		physicianText=Swing.NewLabel("Physician Id",Color.white, 20, 400, 725);	Manage.add(physicianText);
-		nurseText=Swing.NewLabel("Nurse Id",Color.white, 20, 600, 725);			Manage.add(nurseText);
+		roomText=Swing.NewLabel("Room Id",Color.white, 20, 200, 850);		Manage.add(roomText);
+		physicianText=Swing.NewLabel("Physician Id",Color.white, 20, 600, 850);	Manage.add(physicianText);
+		nurseText=Swing.NewLabel("Nurse Id",Color.white, 20, 1000, 850);			Manage.add(nurseText);
 
 		
-		useRoom =Swing.NewComboBox(availableRoom,50,30, 300, 725); Manage.add(useRoom);
-		usePhysician =Swing.NewComboBox(availablePhysician,50,30, 525, 725); Manage.add(usePhysician);
-		useNurse =Swing.NewComboBox(availableNurse,50,30, 700, 725); Manage.add(useNurse);
+		useRoom =Swing.NewComboBox(availableRoom,50,30, 305, 850); Manage.add(useRoom);
+		usePhysician =Swing.NewComboBox(availablePhysician,50,30, 755, 850); Manage.add(usePhysician);
+		useNurse =Swing.NewComboBox(availableNurse,50,30, 1105, 850); Manage.add(useNurse);
 		
 		if(stage!=2)setInProgressElementVisibilty(false);
 
-		BResolve = Swing.NewButton("Resolve", Color.GRAY, 17, 200, 40, 700, 800);
+		BResolve = Swing.NewButton("Resolve", Color.GRAY, 17, 200, 40, 700, 850);
 		
 		//--------------Done---------------------------------------------------------------------------------------------------------
-		BDone = Swing.NewButton("Resolved", Color.GRAY, 17, 200, 40, 580, 250);			Manage.add(BDone);
+		BDone = Swing.NewButton("Resolved", Color.GRAY, 17, 200, 40, 550, 110);			Manage.add(BDone);
+		BDone.setIcon(new ImageIcon("res/ECM/Manage/ResolvedIcon.png"));
 
 		JPanel BOptions = new JPanel();
 		CardLayout cl = new CardLayout();
 		BOptions.setLayout(cl);
-		BOptions.setBounds((int) (scalex * 400), (int) (scaley * 800), (int) (scalex * 200), (int) (scaley * 40));
+		BOptions.setBounds((int) (scalex * 1420), (int) (scaley * 850), (int) (scalex * 200), (int) (scaley * 40));
 
 		BOptions.add(BProcess, "1");
 		BOptions.add(BResolve, "2");
@@ -232,15 +254,18 @@ public class Manage
 			}
 		});
 
-		JButton Back = Swing.NewButton("Return", Color.black, 17, 200, 40, 400, 850);
+		JButton Back = Swing.NewButton("Return", Color.black, 17, 200, 40, 1420,  923);
+		Back.setIcon(new ImageIcon("res/ECM/Manage/ReturnIcon.png"));
 		Manage.add(Back);
 
 		Back.addMouseListener(new MouseAdapter()
 		{
 			public void mousePressed(MouseEvent e)
 			{
+				Window.splitX=(int)screenSize.getWidth()/2;
+
 				Map.deleteWaypoint();
-				Insertion.Insertion.removeAll();
+				Insert.Insertion.removeAll();
 				Home.Home.removeAll();
 				Manage.removeAll();
 				Window.panel.add(Home.Init(username), "0");
@@ -263,12 +288,19 @@ public class Manage
 			}
 		});
 		
-		Manage.add(Swing.NewImage("res/ECM/Home/Manage.png", 960, 1080, 0, 0));
+		Manage.add(Swing.NewImage("res/ECM/Manage/Background.png", 1920, 1080, 0, 0));
 		Manage.setLayout(null);
 
 		return Manage;
 	}
 	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * Reset the table contents depending on the status we want to view.
+	 * 
+	 * 	@param status 	the emergency status.
+	 *****************************/
 	static void resetTable(String status)
 	{
 		ResultSet rs = Emergency.getResultSetByStatus(status);
@@ -278,6 +310,13 @@ public class Manage
 		BResolve.setBackground(Color.gray);
 	}
 	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * To modify the visibility of the element in the "Waiting" tab
+	 * 
+	 * 	@param bool 	the visibility.
+	 *****************************/
 	static void setWaitingElementVisibilty(boolean bool)
 	{
 		ambText.setVisible(bool);
@@ -286,6 +325,13 @@ public class Manage
 		useDriver.setVisible(bool);
 	}
 	
+	/************************************************************
+	 * Method.<BR>
+	 * 
+	 * To modify the visibility of the element in the "Progress" tab
+	 * 
+	 * 	@param bool 	the visibility.
+	 *****************************/
 	static void setInProgressElementVisibilty(boolean bool)
 	{
 		roomText.setVisible(bool);
