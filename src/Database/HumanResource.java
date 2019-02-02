@@ -29,7 +29,7 @@ public class HumanResource
 			ResultSet resultSet= statement.executeQuery(query);
 			if(resultSet.next())
 			{
-				return (resultSet.getString(1)+resultSet.getString(2));
+				return (resultSet.getString(1)+" " +resultSet.getString(2));
 			}
 		}
 		catch(Exception e) {System.out.println(e);}

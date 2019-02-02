@@ -94,4 +94,15 @@ public class Queue
 		catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
+	
+	public static void setPatientStatus(int IdPatient, String Status)
+	{
+		try 
+		{
+			String query="UPDATE Queue SET Status  = '"+Status  +"' WHERE (IdPatient ="+IdPatient+")";
+			Statement statement=(Statement) connection.createStatement();
+			statement.executeUpdate(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+	}
 }
