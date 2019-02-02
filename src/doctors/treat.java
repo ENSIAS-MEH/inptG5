@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import javax.swing.border.SoftBevelBorder;
 import com.itextpdf.text.DocumentException;
 
 import Database.PatientHistory;
+import net.proteanit.sql.DbUtils;
 
 import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
@@ -135,6 +137,7 @@ public class treat {
 	
 		JTable table = new JTable();
 		
+		
 		table.setFont(new Font("Simplified Arabic", Font.PLAIN, 20));
 		scrollPane1.setViewportView(table);
 		JButton btnConfirmer = new JButton("Confirmer");
@@ -151,12 +154,15 @@ public class treat {
 					e2.printStackTrace();
 				}
 				try {
-					PatientHistory.insert(1,Integer.parseInt(((String)(textField.getText()))),(String)(textArea.getText()),(String)(textArea_1.getText()),date,Integer.parseInt((String)(textField_2.getText())));
+					PatientHistory.insert(1,id,textArea.getText().toString(),textArea_1.getText().toString(),date,Integer.valueOf(textField_2.getText().toString()));
 				} catch (NumberFormatException | SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				 PatientHistory.update(table,PatientHistory.getResultSetByPatient1(1));
+				
+				
+				ResultSet rs=PatientHistory.getResultSetByPatient1(1);
+				table.setModel(DbUtils.resultSetToTableModel(rs));
 				
 				
 			}

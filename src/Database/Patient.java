@@ -142,7 +142,7 @@ public class Patient
 				for(int i=0;i<8;i++)
 				{
 					tab[i]=rs.getString(i+1);
-					System.out.println(tab[i]);
+					
 				}
 			}
 		}
