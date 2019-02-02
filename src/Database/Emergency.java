@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import Main.Main;
 
@@ -43,6 +46,17 @@ public class Emergency
 			String query="UPDATE Emergency SET Status= '"+Status +"' WHERE (IdEmergency ="+IdEmergency+")";
 			Statement statement=(Statement) connection.createStatement();
 			statement.executeUpdate(query);
+			
+			if(Status.equals("Resolved"))
+			{
+				Date date = new Date();
+		        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		        String strDate = dateFormat.format(date);
+		        
+				query="UPDATE Emergency SET ResolutionDate= '"+strDate +"' WHERE (IdEmergency ="+IdEmergency+")";
+				statement=(Statement) connection.createStatement();
+				statement.executeUpdate(query);
+			}
 		}
 		catch(Exception e) {System.out.println(e);}
 	}
