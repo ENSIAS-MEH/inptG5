@@ -55,6 +55,7 @@ public class PatientTreatment
 	private JTextField textField;
 	private static Connection connection;
 	public JTable table2 = new JTable();;
+	static int idpat=0;
 
 	/**
 	 * Launch the application.
@@ -186,8 +187,9 @@ public class PatientTreatment
 			public void mouseClicked(MouseEvent arg0)
 			{
 				int ligne = table2.getSelectedRow();
-				int id=Integer.parseInt((table2.getModel().getValueAt(ligne, 2).toString()));
-				String[] patientInfo=Patient.getResultSet3(id);
+				idpat=Integer.parseInt((table2.getModel().getValueAt(ligne, 2).toString()));
+				
+				String[] patientInfo=Patient.getResultSet3(idpat);
 				System.out.println(patientInfo[1]);
 				textField.setText(patientInfo[1]+" "+patientInfo[2]);
 				label_2.setText(patientInfo[4]);
@@ -195,10 +197,13 @@ public class PatientTreatment
 				label_4.setText(patientInfo[6]);
 				label_5.setText(patientInfo[5]);
 				label_1.setText(patientInfo[7]);
-				ResultSet rs=PatientHistory.getResultSetByPatient1(id);
+				ResultSet rs=PatientHistory.getResultSetByPatient1(idpat);
 				table.setModel(DbUtils.resultSetToTableModel(rs));
 			}
 		});
+		
+
+		
 		table2.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		scrollPane.setViewportView(table2);
 
@@ -268,6 +273,7 @@ public class PatientTreatment
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
+				Queue.setPatientStatus(idpat,"treated");
 				frame.dispose();
 				treat t = new treat(id);
 				t.frame.setVisible(true);
