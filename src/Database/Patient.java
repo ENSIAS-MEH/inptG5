@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import Main.Main;
 /***************************************************************
  * cette classe contient les diffentes methodes permettant de manipuler la table patient dans la DB
@@ -103,7 +105,6 @@ public class Patient
 			String query="SELECT * FROM Patient where idPatient='"+id+"';";
 			Statement statement=(Statement) connection.createStatement();
 			return statement.executeQuery(query);
-
 		}
 		catch(Exception e) {System.out.println(e);}
 		return null;
@@ -134,17 +135,18 @@ public class Patient
 	public static String[] getResultSet3(int id) 
 	{
 		ResultSet rs=getResultSet2(id);
-		int i=0;
 		String tab[]=new String[8];
 		try {
-			while(rs.next())
+			if(rs.next())
 			{
-				tab[i]=rs.getString(i);
+				for(int i=0;i<8;i++)
+				{
+					tab[i]=rs.getString(i+1);
+					System.out.println(tab[i]);
+				}
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
+		catch(Exception e) {}
 		return tab;
 		
 	}

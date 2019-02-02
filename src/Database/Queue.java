@@ -91,7 +91,7 @@ public class Queue
 			return statement.executeQuery(query);
 
 		}
-		catch(Exception e) {System.out.println(e);}
+		catch(Exception e) {e.printStackTrace();}
 		return null;
 	}
 }

@@ -47,38 +47,16 @@ public class treat {
 	private JTextField textField_2;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					treat window = new treat();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				try 
-				{
-					Class.forName("org.sqlite.JDBC");
-					connection = DriverManager.getConnection("jdbc:sqlite:database.db");
-				}
-				catch(Exception e) {e.printStackTrace();}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
-	public treat() {
-		initialize();
+	public treat(int id) {
+		initialize(id);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int id) {
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		DateFormat format1=new SimpleDateFormat("yyyy/MM/dd");
@@ -88,34 +66,34 @@ public class treat {
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
 		JLabel label_3 = new JLabel("");
-		label_3.setFont(new Font("Stencil", Font.PLAIN, 23));
+		label_3.setFont(new Font("Century Gothic", Font.PLAIN, 23));
 		label_3.setBounds(1090, 29, 250, 76);
 		
 		label_3.setText(format.format(date));
 		frame.getContentPane().add(label_3);
 		
 		JLabel lblId = new JLabel("id Doctor:");
-		lblId.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblId.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		lblId.setBounds(38, 109, 123, 42);
 		frame.getContentPane().add(lblId);
 		
 		JLabel lblDisease = new JLabel("Disease:");
-		lblDisease.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblDisease.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		lblDisease.setBounds(333, 109, 123, 42);
 		frame.getContentPane().add(lblDisease);
 		
 		JLabel lblTreatement = new JLabel("Treatement:");
-		lblTreatement.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblTreatement.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		lblTreatement.setBounds(599, 109, 151, 42);
 		frame.getContentPane().add(lblTreatement);
 		
 		JLabel lblVisitDate = new JLabel("Visit Date:");
-		lblVisitDate.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblVisitDate.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		lblVisitDate.setBounds(874, 109, 123, 42);
 		frame.getContentPane().add(lblVisitDate);
 		
 		JLabel lblA = new JLabel("Amount:");
-		lblA.setFont(new Font("Stencil", Font.PLAIN, 20));
+		lblA.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		lblA.setBounds(1118, 116, 123, 42);
 		frame.getContentPane().add(lblA);
 		
@@ -183,7 +161,7 @@ public class treat {
 				
 			}
 		});
-		btnConfirmer.setFont(new Font("Stencil", Font.PLAIN, 20));
+		btnConfirmer.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnConfirmer.setBounds(1134, 647, 159, 49);
 		frame.getContentPane().add(btnConfirmer);
 		
@@ -191,14 +169,14 @@ public class treat {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				PatientTreatment p=new PatientTreatment();
+				PatientTreatment p=new PatientTreatment(id);
 				frame.dispose();
 				p.frame.setVisible(true);
 				
 				
 			}
 		});
-		btnRetour.setFont(new Font("Stencil", Font.PLAIN, 20));
+		btnRetour.setFont(new Font("Century Gothic", Font.PLAIN, 20));
 		btnRetour.setBounds(57, 647, 159, 49);
 		frame.getContentPane().add(btnRetour);
 		

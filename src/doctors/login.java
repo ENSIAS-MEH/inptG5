@@ -21,7 +21,7 @@ import Database.HumanResource;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.*;
-
+import Main.Main;
 
 /******************************************************************
  * creation d'une frame qui demande à l'utilisateur(Docteur) un nom d'utilisateur et un mot de passe pour se connecter à son compte
@@ -43,6 +43,7 @@ public class login {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Main.main(null);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		scaley=(float)screenSize.getHeight()/1080;
 		scalex=(float)screenSize.getWidth()/1920;
@@ -98,7 +99,7 @@ public class login {
 		
 		Pass.addActionListener(ae -> 
 		{
-			if(((String)(User.getText())).equals("nabil") && ((String)(Pass.getText())).equals("nabil"))
+			/*if(((String)(User.getText())).equals("nabil") && ((String)(Pass.getText())).equals("nabil"))
 			{
 				
 				frame.dispose();
@@ -108,19 +109,20 @@ public class login {
 			else
 			{
 				JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
-			}
+			}*/
 			
-			/*
+			
 			if(HumanResource.connect((String)(User.getText()),(String)(Pass.getText())))
 			{
-				;
 				frame.dispose();
+				PatientTreatment p=new PatientTreatment(HumanResource.getId(User.getText()));
+				p.frame.setVisible(true);
 			}
 			else
 			{
 				JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
 			}
-			*/
+			
 		});
 		
 		JButton exit=Swing.NewButton("x",20,75,20 ,525,0);	frame.add(exit);
@@ -130,7 +132,7 @@ public class login {
 		{
 			public void mouseClicked(MouseEvent e)
 			{
-				if(((String)(User.getText())).equals("nabil") && ((String)(Pass.getText())).equals("nabil"))
+				/*if(((String)(User.getText())).equals("nabil") && ((String)(Pass.getText())).equals("nabil"))
 				{
 					
 					frame.dispose();
@@ -141,18 +143,20 @@ public class login {
 				else
 				{
 					JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
-				}
+				}*/
 				
-				/*if(HumanResource.connect(User.getText(),Pass.getText()))
+				if(HumanResource.connect(User.getText(),Pass.getText()))
 				{
 					
 					frame.dispose();
+					PatientTreatment p=new PatientTreatment(HumanResource.getId(User.getText()));
+					p.frame.setVisible(true);
 				}
 				else
 				{
 					JOptionPane.showMessageDialog(null, "An error occured, please try again","Error",JOptionPane.ERROR_MESSAGE);
 				}
-				*/
+				
 			}
 		});
 
