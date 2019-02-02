@@ -53,11 +53,11 @@ public class Room
 		return 0;
 	}
 	
-	public static void setStatus(int idRoom, boolean status)
+	public static void setAvailibility(int idRoom, boolean isAvailable)
 	{
 		try 
 		{
-			String query="UPDATE Room SET status = '"+status+"' WHERE (idRoom ="+idRoom+")";
+			String query="UPDATE Room SET isAvailable = '"+isAvailable+"' WHERE (idRoom ="+idRoom+")";
 			Statement statement=(Statement) connection.createStatement();
 			statement.executeUpdate(query);
 		}

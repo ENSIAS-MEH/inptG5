@@ -9,19 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import Main.Main;
-/******************************************
- * cette classe contient les diffentes methodes permettant de manipuler la table Queue dans la db
- 
- */
+
 public class Queue
 {
 	static Connection connection=Main.getConnection();
-	/*************************************************
-	 * insertion d'un nouvel patient dans la queue
-	 * @param IdPatient
-	 * @param IdDoctor
-	 * @throws SQLException
-	 */
+	
 	public static void insert(int IdPatient,int IdDoctor) throws SQLException
 	{
 		int id=count()+1;
@@ -35,10 +27,7 @@ public class Queue
 		statement =connection.createStatement();
 		statement.executeUpdate(query);
 	}
-	/********************************
-	 * nombre de patient passés dans la queue
-	 * @return
-	 */
+	
 	public static int count()
 	{
 		try 
@@ -54,12 +43,6 @@ public class Queue
 		catch(Exception e) {System.out.println(e);}
 		return 0;
 	}
-	
-	/********************************************
-	 * nombre de patient en attente dans la queue d'un docteur
-	 * @param IdDoctor
-	 * @return
-	 */
 	
 	public static int getWaitingPatientCount(int IdDoctor)
 	{
@@ -77,11 +60,7 @@ public class Queue
 		catch(Exception e) {System.out.println(e);}
 		return 0;
 	}
-	/*************************
-	 * liste des patients dans la queue pour voir le docteur
-	 * @param IdDoctor
-	 * @return
-	 */
+	
 	public static ResultSet getResultSet(int IdDoctor)
 	{
 		try 
@@ -91,10 +70,9 @@ public class Queue
 			return statement.executeQuery(query);
 
 		}
-		catch(Exception e) {e.printStackTrace();}
+		catch(Exception e) {System.out.println(e);}
 		return null;
 	}
-	
 	
 	public static void setPatientStatus(int IdPatient, String Status)
 	{
