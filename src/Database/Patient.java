@@ -63,4 +63,53 @@ public class Patient
 		catch(Exception e) {System.out.println(e);}
 		return null;
 	}
+	
+	public static String[] getResultSet1(String firstname,String lastname) 
+	{
+		ResultSet rs=getResultSet(firstname,lastname);
+		int i=0;
+		String tab[]=new String[8];
+		try {
+			while(rs.next())
+			{
+				tab[i]=rs.getString(i);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tab;
+		
+	}
+	
+	public static ResultSet getResultSet2(int id)
+	{
+		try 
+		{
+			String query="SELECT * FROM Patient where idPatient='"+id+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
+	
+	public static String[] getResultSet3(int id) 
+	{
+		ResultSet rs=getResultSet2(id);
+		String tab[]=new String[8];
+		try {
+			if(rs.next())
+			{
+				for(int i=0;i<8;i++)
+				{
+					tab[i]=rs.getString(i+1);
+					
+				}
+			}
+		}
+		catch(Exception e) {}
+		return tab;
+		
+	}
 }
