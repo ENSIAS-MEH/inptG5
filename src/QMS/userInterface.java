@@ -171,7 +171,7 @@ public class userInterface {
 		welcome.add(lblWelcomeToOur);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\welcome.jpg"));
+		lblNewLabel_3.setIcon(new ImageIcon("images/welcome.jpg"));
 		lblNewLabel_3.setBounds(0, 0, 784, 462);
 		welcome.add(lblNewLabel_3);
 		
@@ -356,7 +356,7 @@ public class userInterface {
 		comboBox_1.addItem("female");
 		
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\info.jpg"));
+		lblNewLabel_4.setIcon(new ImageIcon("images/info.jpg"));
 		lblNewLabel_4.setBounds(0, 0, 784, 462);
 		info.add(lblNewLabel_4);
 		
@@ -456,7 +456,7 @@ public class userInterface {
 		purpose.add(btnConsultDoctors);
 		
 		JLabel lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\purpose.jpg"));
+		lblNewLabel_5.setIcon(new ImageIcon("images/purpose.jpg"));
 		lblNewLabel_5.setBounds(0, 0, 784, 462);
 		purpose.add(lblNewLabel_5);
 		
@@ -510,7 +510,7 @@ public class userInterface {
 		consultation.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\consultation.jpg"));
+		lblNewLabel_6.setIcon(new ImageIcon("images/consultation.jpg"));
 		lblNewLabel_6.setBounds(0, 0, 784, 462);
 		consultation.add(lblNewLabel_6);
 		
@@ -549,7 +549,7 @@ public class userInterface {
 		printing.add(btnNewButton_3);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon("C:\\Users\\Rxs\\Downloads\\print.jpg"));
+		lblNewLabel_7.setIcon(new ImageIcon("images/print.jpg"));
 		lblNewLabel_7.setBounds(0, 0, 784, 462);
 		printing.add(lblNewLabel_7);
 
