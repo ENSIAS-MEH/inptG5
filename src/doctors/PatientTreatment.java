@@ -190,7 +190,7 @@ public class PatientTreatment
 				idpat=Integer.parseInt((table2.getModel().getValueAt(ligne, 2).toString()));
 				
 				String[] patientInfo=Patient.getResultSet3(idpat);
-				System.out.println(patientInfo[1]);
+				
 				textField.setText(patientInfo[1]+" "+patientInfo[2]);
 				label_2.setText(patientInfo[4]);
 				label_3.setText(patientInfo[3]);
