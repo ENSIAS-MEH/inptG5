@@ -167,7 +167,14 @@ public class Swing
 		TextField.setSize((int) (scalex * width), (int) (scaley * height));
 		return TextField;
 	}
-
+/***************************************
+ * cette methode permet de créer un nouveau Passwordfield selon les paramétres suivants:
+ * @param width
+ * @param height
+ * @param x
+ * @param y
+ * @return
+ */
 	public static JPasswordField NewPasswordField(int width, int height, int x, int y)
 	{
 		JPasswordField PasswordFiel = new JPasswordField();
@@ -178,6 +185,16 @@ public class Swing
 	}
 
 	// -------------------NewImage--------------------------------------------------------------------------------------
+	/****************************************************
+	 * cette methode permet de créer un label qui contient une image trouvé dans un destination aprés avoir scaler
+	 * cette image 
+	 * @param path chemin de l'image
+	 * @param w width
+	 * @param h height
+	 * @param x postion sur x
+	 * @param y postion sur y
+	 * @return
+	 */
 	public static JLabel NewImage(String path, int w, int h, int x, int y)
 	{
 		ImageIcon img = new ImageIcon(path);
@@ -198,6 +215,15 @@ public class Swing
 	}
 
 	// --------------------NewComboBox----------------------------------------------------------------------------------
+	/************************************************
+	 * cette methode permet de créer un nouveau combo box selon les paramétres suivants:
+	 * @param list liste des options ou choix contenu dans le combobox
+	 * @param w width
+	 * @param h height
+	 * @param x postion sur x
+	 * @param y postion sur y
+	 * @return
+	 */
 	public static JComboBox<String> NewComboBox(String[] list, int w, int h, int x, int y)
 	{
 		JComboBox<String> ComboBox = new JComboBox<>(list);
@@ -213,6 +239,13 @@ public class Swing
 	}
 
 	// --------------------NewCheckBox----------------------------------------------------------------------------------
+	/****************************************
+	 * cette methode permet de créer un nouveau checkbox selon les paramétres suivants:
+	 * @param text texte de checkbox
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public static JCheckBox NewCheckBox(String text, int x, int y)
 	{
 
