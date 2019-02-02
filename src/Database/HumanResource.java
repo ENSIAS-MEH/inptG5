@@ -29,7 +29,7 @@ public class HumanResource
 			ResultSet resultSet= statement.executeQuery(query);
 			if(resultSet.next())
 			{
-				return (resultSet.getString(1)+" " +resultSet.getString(2));
+				return (resultSet.getString(1)+resultSet.getString(2));
 			}
 		}
 		catch(Exception e) {System.out.println(e);}
@@ -187,6 +187,22 @@ public class HumanResource
 			if(resultSet.next())
 			{
 				return resultSet.getInt(1);
+			}
+		}
+		catch(Exception e) {System.out.println(e);}
+		return 0;
+	}
+	
+	public static int getId(String username)
+	{
+		try 
+		{
+			String query="SELECT IdStaff FROM HumanResource where username='"+username+"';";
+			Statement statement=(Statement) connection.createStatement();
+			ResultSet resultSet= statement.executeQuery(query);
+			if(resultSet.next())
+			{
+				return (resultSet.getInt(1));
 			}
 		}
 		catch(Exception e) {System.out.println(e);}
