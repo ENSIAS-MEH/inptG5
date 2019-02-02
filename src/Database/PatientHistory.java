@@ -94,13 +94,13 @@ public class PatientHistory
 	 * @param table une table à remplir avec les infos
 	 * @param rs resultats d'une requete
 	 */
-	public static void update(JTable table,ResultSet rs){
+	public static JTable update(JTable table,ResultSet rs){
 		
 		
 		try{
 			
 			table.setModel(DbUtils.resultSetToTableModel(rs));
-			
+			return table;
 		
 		}
 		catch(Exception e)
@@ -108,6 +108,7 @@ public class PatientHistory
 			
 			System.out.println(e);
 		}
+		return null;
 		
 	}
 }

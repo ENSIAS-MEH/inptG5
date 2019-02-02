@@ -10,6 +10,8 @@ import Main.Main;
 /***************************************************************
  * cette classe contient les diffentes methodes permettant de manipuler la table patient dans la DB
  * @author User
+ * 
+ *
  *
  */
 public class Patient
@@ -94,6 +96,18 @@ public class Patient
 		catch(Exception e) {System.out.println(e);}
 		return null;
 	}
+	public static ResultSet getResultSet2(int id)
+	{
+		try 
+		{
+			String query="SELECT * FROM Patient where idPatient='"+id+"';";
+			Statement statement=(Statement) connection.createStatement();
+			return statement.executeQuery(query);
+
+		}
+		catch(Exception e) {System.out.println(e);}
+		return null;
+	}
 	/***********************************************************
 	 * les informations du patient à partir du firstname et lastname sous forme d'un tableau
 	 * @param firstname
@@ -117,4 +131,22 @@ public class Patient
 		return tab;
 		
 	}
+	public static String[] getResultSet3(int id) 
+	{
+		ResultSet rs=getResultSet2(id);
+		int i=0;
+		String tab[]=new String[8];
+		try {
+			while(rs.next())
+			{
+				tab[i]=rs.getString(i);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tab;
+		
+	}
+	
 }

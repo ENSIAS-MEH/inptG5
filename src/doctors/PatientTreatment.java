@@ -5,6 +5,7 @@ import java.text.*;
 import java.util.*;
 import Database.*;
 import Database.Queue;
+import net.proteanit.sql.DbUtils;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,7 +51,7 @@ public class PatientTreatment {
 	private JTable table_1;
 	private JTextField textField;
 	private static Connection connection;
-
+	public JTable table2= new JTable();;
 	/**
 	 * Launch the application.
 	 */
@@ -100,6 +101,7 @@ public class PatientTreatment {
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0,0,0,0f));
 		panel.setBounds(489, 11, 851, 297);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
@@ -160,9 +162,18 @@ public class PatientTreatment {
 		scrollPane.setBounds(25, 32, 423, 635);
 		frame.getContentPane().add(scrollPane);
 	
-		JTable table2 = new JTable();
+		table2 = new JTable();
 		table2.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				int ligne=table2.getSelectedRow();
+				textField.setText(Patient.getResultSet3(Integer.parseInt((String)(table.getModel().getValueAt(ligne,2))))[0]);
+				label_2.setText(Patient.getResultSet3(Integer.parseInt((String)(table.getModel().getValueAt(ligne,2))))[4]);
+				label_3.setText(Patient.getResultSet3(Integer.parseInt((String)(table.getModel().getValueAt(ligne,2))))[3]);
+				label_4.setText(Patient.getResultSet3(Integer.parseInt((String)(table.getModel().getValueAt(ligne,2))))[6]);
+				label_5.setText(Patient.getResultSet3(Integer.parseInt((String)(table.getModel().getValueAt(ligne,2))))[5]);
+				label_1.setText(Patient.getResultSet3(Integer.parseInt((String)(table.getModel().getValueAt(ligne,2))))[7]);
+				
+				
 				
 				
 		        
@@ -179,20 +190,21 @@ public class PatientTreatment {
 		    @Override
 		    public void actionPerformed(ActionEvent e)
 		    {
+		    	/*
 		    	String p=(String)(textField.getText());
 			      String s[]=p.split("\\s+");
+			      */
 			       
-			        label_2.setText(Patient.getResultSet1(s[0],s[1])[4]);
-					label_3.setText(Patient.getResultSet1(s[0],s[1])[3]);
-					label_4.setText(Patient.getResultSet1(s[0],s[1])[6]);
-					label_5.setText(Patient.getResultSet1(s[0],s[1])[5]);
-					label_1.setText(Patient.getResultSet1(s[0],s[1])[7]); 
-			     PatientHistory.update(table2,Queue.getResultSet(Integer.parseInt((String)(txtYourId.getText()))));
-			     PatientHistory.update(table,PatientHistory.getResultSetByPatient1(1));
+			       ResultSet rs=Queue.getResultSet(Integer.parseInt((String)(txtYourId.getText())));
+		    	//table2=PatientHistory.update(table2,Queue.getResultSet(Integer.parseInt((String)(txtYourId.getText()))));
+			       table2.setModel(DbUtils.resultSetToTableModel(rs));
+
+			     //PatientHistory.update(table,PatientHistory.getResultSetByPatient1(1));
 		    }
 		      
 		    
 		};
+		txtYourId.addActionListener(action);
 
 		
 		
@@ -202,12 +214,12 @@ public class PatientTreatment {
 		textField.setBounds(194, 32, 189, 30);
 		panel.add(textField);
 		textField.setColumns(10);
-		textField.addActionListener( action );
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(489, 319, 851, 120);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
-		
+		panel_1.setBackground(new Color(0,0,0,0f));
 		JLabel lblSymptoms = new JLabel("Symptoms:");
 		lblSymptoms.setFont(new Font("Stencil", Font.PLAIN, 23));
 		lblSymptoms.setBounds(21, 11, 152, 39);
@@ -221,6 +233,7 @@ public class PatientTreatment {
 		panel_2.setBounds(489, 450, 852, 195);
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
+		panel_2.setBackground(new Color(0,0,0,0f));
 		
 		JLabel lblHistory = new JLabel("History:");
 		lblHistory.setFont(new Font("Stencil", Font.PLAIN, 23));
