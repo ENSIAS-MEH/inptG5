@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLayeredPane;
@@ -20,6 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import Database.HumanResource;
@@ -57,6 +60,7 @@ public class userInterface {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	patient p;
+	Process proc = null;
 
 
 	/**
@@ -373,6 +377,16 @@ public class userInterface {
 				layeredPane.add(printing);
 				layeredPane.repaint();
 				layeredPane.revalidate();
+				
+				
+				try {
+					proc = Runtime
+							   .getRuntime()
+							   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/Rxs/Desktop/receipt.pdf");
+					proc.waitFor();
+					} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 			}
 		});
 		btnNewButton.setBackground(new Color(135, 206, 250));
@@ -390,6 +404,15 @@ public class userInterface {
 				layeredPane.add(printing);
 				layeredPane.repaint();
 				layeredPane.revalidate();
+				
+				try {
+					proc = Runtime
+							   .getRuntime()
+							   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/Rxs/Desktop/receipt.pdf");
+					proc.waitFor();
+					} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 			}
 		});
 		btnScan.setForeground(Color.DARK_GRAY);
@@ -407,6 +430,15 @@ public class userInterface {
 				layeredPane.add(printing);
 				layeredPane.repaint();
 				layeredPane.revalidate();
+				
+				try {
+					proc = Runtime
+							   .getRuntime()
+							   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/Rxs/Desktop/receipt.pdf");
+					proc.waitFor();
+					} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 			}
 		});
 		btnCertificate.setForeground(Color.DARK_GRAY);
@@ -424,6 +456,15 @@ public class userInterface {
 				layeredPane.add(printing);
 				layeredPane.repaint();
 				layeredPane.revalidate();
+				
+				try {
+					proc = Runtime
+							   .getRuntime()
+							   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/Rxs/Desktop/receipt.pdf");
+					proc.waitFor();
+					} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 			}
 		});
 		btnVaccine.setForeground(Color.DARK_GRAY);
@@ -501,6 +542,15 @@ public class userInterface {
 				layeredPane.add(printing);
 				layeredPane.repaint();
 				layeredPane.revalidate();
+				
+				try {
+					proc = Runtime
+							   .getRuntime()
+							   .exec("rundll32 url.dll,FileProtocolHandler C:/Users/Rxs/Desktop/receipt.pdf");
+					proc.waitFor();
+					} catch (Exception e1) {
+							e1.printStackTrace();
+						}
 			}
 		});
 		btnNewButton_1.setBackground(Color.ORANGE);

@@ -24,8 +24,6 @@ import Database.Queue;
  */
 public class WritePDF
 {
-	 public static final String dest
-     = "C:/itextExamples/sample.pdf";
 
 
 /**
