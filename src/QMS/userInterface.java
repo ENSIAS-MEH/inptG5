@@ -369,6 +369,7 @@ public class userInterface {
 		purpose.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Diagnostic");
+		btnNewButton.setIcon(new ImageIcon("images/stethoscope.png"));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -396,6 +397,7 @@ public class userInterface {
 		purpose.add(btnNewButton);
 		
 		JButton btnScan = new JButton("Scan");
+		btnScan.setIcon(new ImageIcon("images/scanner.png"));
 		btnScan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -422,6 +424,7 @@ public class userInterface {
 		purpose.add(btnScan);
 		
 		JButton btnCertificate = new JButton("Certificate");
+		btnCertificate.setIcon(new ImageIcon("images/certificate.png"));
 		btnCertificate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -448,6 +451,7 @@ public class userInterface {
 		purpose.add(btnCertificate);
 		
 		JButton btnVaccine = new JButton("Vaccine");
+		btnVaccine.setIcon(new ImageIcon("images/vaccine.png"));
 		btnVaccine.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -481,6 +485,7 @@ public class userInterface {
 		purpose.add(lblNewLabel_1);
 		
 		JButton btnConsultDoctors = new JButton("Consult Doctors");
+		btnConsultDoctors.setIcon(new ImageIcon("images/consulting.png"));
 		btnConsultDoctors.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -523,6 +528,7 @@ public class userInterface {
 		consultation.add(lblChooseTheDoctors);
 		
 		JButton btnNewButton_1 = new JButton("Submit");
+		btnNewButton_1.setIcon(new ImageIcon("images/arrow.png"));
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
