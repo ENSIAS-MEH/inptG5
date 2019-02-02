@@ -20,20 +20,32 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import Database.Queue;
+/***********************************************************************************
+ * cette classe permet de generer un fichier pdf qui contient des informations 
+ * @author User
+ *
+ */
 public class CreatePdf {
 	
-		 /*
-	     File file = new File("C:\\Users\\User\\Desktop\\itextexamples");
-		 boolean p=file.setExecutable(true);
-		 boolean r=file.setReadable(true);
-		 boolean s=file.setWritable(true);
+		/*****************************************************************
+		 * la destination du fichier pdf à créer
 		 */
-		 
 		 public static final String dest ="C:/Users/User/Desktop/itextexamples/sample.pdf";
 		 
 		
 
 
+		/**************************************************
+		 * méthode qui permet de céer un pdf en utilisant les paramétres suivants qui vont etre dans le contenu du pdf:
+		 * @param a
+		 * @param b
+		 * @param c
+		 * @param d
+		 * @param e
+		 * @param f
+		 * @throws DocumentException
+		 * @throws IOException
+		 */
 	 public static void createPdf(String a,String b,String c,String d,String e,String f)
 		    throws DocumentException, IOException {
 	     Document document = new Document();

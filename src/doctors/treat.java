@@ -31,7 +31,13 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-
+/***********************************************************************************************
+ * cette classe permet de créer l'interface du traitement du patient et donne la main au docteur pour entrer la maladie 
+ * du patient et le traitement qu'il doit avoir et enregistre ces informations dans la base de donnée (historique du patient)
+ * afin de d'inmprimer un reçu de traitement et l'imprimer pour le donner au patient 
+ * @author User
+ *
+ */
 public class treat {
 
 	public JFrame frame;

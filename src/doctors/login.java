@@ -23,7 +23,12 @@ import javax.swing.JButton;
 import javax.*;
 
 
-
+/******************************************************************
+ * creation d'une frame qui demande à l'utilisateur(Docteur) un nom d'utilisateur et un mot de passe pour se connecter à son compte
+ * et avoir le différentes fonctionnalités
+ * @author User
+ *
+ */
 public class login {
 
 	public JFrame frame;
@@ -69,7 +74,7 @@ public class login {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * l'initialisation du contenu du frame login.
 	 */
 	private void initialize() {
 		frame = new JFrame();

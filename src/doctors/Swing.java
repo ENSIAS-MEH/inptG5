@@ -16,7 +16,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-
+/****************************************************************
+ * cette classe contient les differentes objets utilisé pour former les composantes d'un frame sous forme de fonctions 
+ * prétes à étre réutilisées
+ * @author User
+ *
+ */
 
 public class Swing
 {
@@ -24,6 +29,14 @@ public class Swing
 	static float scaley = Main.scaley;
 
 	// --------------------ScreenShot-----------------------------------------------------------------------------------
+	/*******************************************
+	 * cette methode permet de faire un screenshot de la partie d'ecran limités par les paramétres suivants:  
+	 * @param x position sur x
+	 * @param y position sur y
+	 * @param w weight
+	 * @param h height
+	 * @return
+	 */
 	static public BufferedImage screenShot(int x, int y, int w, int h)
 	{
 		try
@@ -40,6 +53,18 @@ public class Swing
 	}
 
 	// -------------------NewLabel--------------------------------------------------------------------------------------
+	/*****************************
+	 * cette methode permet de créer un nouveau label selon les paramétres suivants:  
+	 * @param text contenu texte du label
+	 * @param color la couleur de label
+	 * @param size 
+	 * @param width
+	 * @param height
+	 * @param x  position sur x
+	 * @param y  position sur y
+	 * @return
+	 */
+	 
 	public static JLabel NewLabel(String text, Color color, int size, int width, int height, int x, int y)
 	{
 		JLabel Label = new JLabel(text);
@@ -49,17 +74,44 @@ public class Swing
 		Label.setHorizontalAlignment(SwingConstants.LEFT);
 		return Label;
 	}
+	/**************************************************
+	 *  cette methode permet de créer un nouveau label selon les paramétres suivants:  
+	 * @param text
+	 * @param size
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 
 	public static JLabel NewLabel(String text, int size, int x, int y)
 	{
 		return NewLabel(text, Color.BLACK, size, x, y);
 	}
+	/*******************************************************
+	 *  cette methode permet de créer un nouveau label selon les paramétres suivants:  
+	 * @param text
+	 * @param color
+	 * @param size
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 
 	public static JLabel NewLabel(String text, Color color, int size, int x, int y)
 	{
 		return NewLabel(text, color, size, (int) (text.length() * size / 1.3), (int) (size * 1.2), x, y);
 	}
-
+    /*********************************************************
+     *  cette methode permet de créer un nouveau boutton selon les paramétres suivants:  
+     * @param text
+     * @param color
+     * @param size
+     * @param width
+     * @param height
+     * @param x
+     * @param y
+     * @return
+     */
 	public static JButton NewButton(String text, Color color, int size, int width, int height, int x, int y)
 	{
 		JButton Button = new JButton(text);
@@ -99,7 +151,14 @@ public class Swing
 	}
 
 	// ----------------------NewTextPane--------------------------------------------------------------------------------
-
+   /*****************************************************************************
+    *  cette methode permet de créer un nouveau textfield selon les paramétres suivants:  
+    * @param width
+    * @param height
+    * @param x
+    * @param y
+    * @return
+    */
 	public static JTextField NewTextField(int width, int height, int x, int y)
 	{
 		JTextField TextField = new JTextField();

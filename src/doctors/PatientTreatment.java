@@ -34,6 +34,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/******************************************************************************************
+ * cette classe contient le frame dans lequel le docteur peut afficher les informations 
+ * du patient et son  historique dans cet hopital et
+ * les symptomes qu'il a et la queue des personnesen attente 
+ * et donne la possibilié de traiter ce patient d'aprés ce frame ou se deconnecter
+ * @author User
+ *
+ */
 public class PatientTreatment {
 
     public JFrame frame;
