@@ -29,7 +29,7 @@ import UserInterface.Swing;
  *****************************/
 public class Manage
 {
-	public static JPanel Manage;
+	static JPanel Manage;
 	static JSplitPane splitPane;
 	static JTable table;
 	static String status;
@@ -263,6 +263,7 @@ public class Manage
 			public void mousePressed(MouseEvent e)
 			{
 				Window.splitX=(int)screenSize.getWidth()/2;
+				Window.timer.start();
 
 				Map.deleteWaypoint();
 				Insert.Insertion.removeAll();
@@ -301,7 +302,7 @@ public class Manage
 	 * 
 	 * 	@param status 	the emergency status.
 	 *****************************/
-	static void resetTable(String status)
+	protected static void resetTable(String status)
 	{
 		ResultSet rs = Emergency.getResultSetByStatus(status);
 		table.setModel(DbUtils.resultSetToTableModel(rs));
@@ -317,7 +318,7 @@ public class Manage
 	 * 
 	 * 	@param bool 	the visibility.
 	 *****************************/
-	static void setWaitingElementVisibilty(boolean bool)
+	protected static void setWaitingElementVisibilty(boolean bool)
 	{
 		ambText.setVisible(bool);
 		driverText.setVisible(bool);
@@ -332,7 +333,7 @@ public class Manage
 	 * 
 	 * 	@param bool 	the visibility.
 	 *****************************/
-	static void setInProgressElementVisibilty(boolean bool)
+	protected static void setInProgressElementVisibilty(boolean bool)
 	{
 		roomText.setVisible(bool);
 		physicianText.setVisible(bool);

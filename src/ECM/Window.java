@@ -19,19 +19,19 @@ import ECM.Map.Map;
  * 
  * @author SouhailMaraoui
  *****************************/
-class Window
+public class Window
 {
 	static JFrame frame;
 	static JPanel map;
 
-	public static JPanel panel;
-	public static CardLayout cl;
-	public static JSplitPane splitPane;
+	static JPanel panel;
+	static CardLayout cl;
+	static JSplitPane splitPane;
 	public static Timer timer;
 	
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	public static int splitX=(int) screenSize.getWidth() / 2;
+	static int splitX=(int) screenSize.getWidth() / 2;
 	static int dividerLocation=splitX;
 
 	/************************************************************
@@ -52,7 +52,7 @@ class Window
 		panel.setLayout(cl);
 
 		panel.add(Home.Init(username), "0");
-
+		
 		cl.show(panel, "0");
 
 		map = Map.newMap();
@@ -60,35 +60,36 @@ class Window
 		splitPane.setEnabled(false);
 		splitPane.setDividerLocation(splitX);
 		
-		/*timer = new Timer(5, new ActionListener()
+		timer = new Timer(4, new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				if(dividerLocation<splitX)
 				{
-					int diff=(splitX-dividerLocation)/50;
+					int diff=(int) Math.pow(splitX-dividerLocation,0.35f);
 					if (diff<1) diff=1;
 					dividerLocation+=diff;
 				}
 				else if(dividerLocation>splitX)
 				{
-					int diff=(dividerLocation-splitX)/50;
+					int diff=(int) Math.pow(dividerLocation-splitX,0.35f);
 					if (diff<1) diff=1;
 					dividerLocation-=diff;
 				}
+				else timer.stop();
 				splitPane.setDividerLocation(dividerLocation);
 			}
-		});*/
+		});
 		
-		timer = new Timer(200, new ActionListener()
+		/*timer = new Timer(200, new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				splitPane.setDividerLocation(splitX);
 			}
-		});
+		});*/
 		
 		frame.add(splitPane);
 		

@@ -93,14 +93,14 @@ public class Map
 						double[] info= {lat,lon,mapViewer.getZoom()-18};
 						goTo(info);
 						
-						Insert.address.setText(Geolocalisation.getAddress(lat,lon));
+						Insert.getAddress().setText(Geolocalisation.getAddress(lat,lon));
 						Insert.canInsert=true;
 						
-						Insert.latitude=lat;
-						Insert.longitude=lon;
+						Insert.setLatitude(lat);
+						Insert.setLongitude(lon);
 						
-						Insert.BInsert.setIcon(new ImageIcon("res/ECM/Insert/InsertIcon.png"));
-						Insert.BInsert.setBackground(new Color(0, 200, 200));
+						Insert.getBInsert().setIcon(new ImageIcon("res/ECM/Insert/InsertIcon.png"));
+						Insert.getBInsert().setBackground(new Color(0, 200, 200));
 					}
 				}
 			}

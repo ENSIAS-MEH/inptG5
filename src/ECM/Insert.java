@@ -21,13 +21,19 @@ import ECM.Map.Map;
  *****************************/
 public class Insert
 {
-	public static JButton BInsert;
-	public static JTextField firstName, lastName, phone, address;
-	public static double longitude = 0, latitude = 0;
+	static JButton BInsert;
+	static JTextField firstName, lastName, phone, address;
+	static double longitude = 0, latitude = 0;
+	/**
+	 * Boolean value to check if we are currently in the Insert frame.
+	 */
 	public static boolean currentFrame = false;
+	/**
+	 * Boolean value to check if we have selected an adress yet.
+	 */
 	public static boolean canInsert;
 
-	public static JPanel Insertion = new JPanel();
+	static JPanel Insertion = new JPanel();
 
 	/************************************************************
 	 * Method.<BR>
@@ -159,6 +165,7 @@ public class Insert
 	 *****************************/
 	public static void Clear()
 	{
+		Map.deleteWaypoint();
 		firstName.setText("");
 		lastName.setText("");
 		phone.setText("");
@@ -184,5 +191,39 @@ public class Insert
 			catch (Exception e){}
 		}
 		return false;
+	}
+	/**
+	 * Get the address JTextField that contain the emergency address.
+	 * @return Address JtextField
+	 */
+	public static JTextField getAddress()
+	{
+		return address;
+	}
+	/**
+	 * Get the button Insert that is manipulated from the class {@link ECM.Map.Map} to change it's color and icon once we select a location.
+	 * @return Insert JButton
+	 */
+	public static JButton getBInsert()
+	{
+		return BInsert;
+	}
+
+	/**
+	 * Set the current longitude.
+	 * @param longitude the longitude of the point clicked in the map.
+	 */
+	public static void setLongitude(double longitude)
+	{
+		Insert.longitude = longitude;
+	}
+
+	/**
+	 * Set the current latitude.
+	 * @param latitude the latitude of the point clicked in the map.
+	 */
+	public static void setLatitude(double latitude)
+	{
+		Insert.latitude = latitude;
 	}
 }

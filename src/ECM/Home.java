@@ -17,18 +17,18 @@ import UserInterface.Swing;
  *****************************/
 public class Home
 {
-	public static JPanel Home;
+	static JPanel Home;
 	static JSplitPane splitPane;
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	/************************************************************
 	 * Method.<BR>
 	 * 
-	 * Initialize the panel Home that would contain all the panels.
+	 * Initialize the panel Home that would contain all the panels from buttons to labels.
 	 * 
 	 * 	@param username 	the username of the current connected user.
 	 * 	 
-	 *  @return Jpanel containing all the buttons, labels .. of the Home panel
+	 *  @return Jpanel containing all the buttons, labels, etc... of the Home panel
 	 *****************************/
 	public static JPanel Init(String username)
 	{
@@ -63,6 +63,7 @@ public class Home
 			public void mouseClicked(MouseEvent e)
 			{
 				Window.splitX=0;
+				Window.timer.start();
 				Window.panel.add(Manage.Init(username,1), "2");
 				Window.cl.show(Window.panel, "2");
 			}

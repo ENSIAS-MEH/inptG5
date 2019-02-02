@@ -128,9 +128,9 @@ public class Swing
 	 *
 	 * @return The created JButton
 	 */
-	public static JButton NewButton(String test, int x, int y)
+	public static JButton NewButton(String text, int x, int y)
 	{
-		return NewButton(test, 20, 120, 40, x, y);
+		return NewButton(text, 20, 120, 40, x, y);
 	}
 
 	/**
@@ -145,9 +145,9 @@ public class Swing
 	 *
 	 * @return The created JButton
 	 */
-	public static JButton NewButton(String test, int size, int x, int y)
+	public static JButton NewButton(String text, int size, int x, int y)
 	{
-		return NewButton(test, size, 120, 40, x, y);
+		return NewButton(text, size, 120, 40, x, y);
 	}
 
 	/**
@@ -162,9 +162,9 @@ public class Swing
 	 *
 	 * @return The created JButton
 	 */
-	public static JButton NewButton(String test, Color color, int x, int y)
+	public static JButton NewButton(String text, Color color, int x, int y)
 	{
-		return NewButton(test, color, 20, 120, 40, x, y);
+		return NewButton(text, color, 20, 120, 40, x, y);
 	}
 
 	/**
@@ -180,9 +180,9 @@ public class Swing
 	 *
 	 * @return The created JButton
 	 */
-	public static JButton NewButton(String test, Color color, int size, int x, int y)
+	public static JButton NewButton(String text, Color color, int size, int x, int y)
 	{
-		return NewButton(test, color, size, 120, 40, x, y);
+		return NewButton(text, color, size, 120, 40, x, y);
 	}
 
 	/**

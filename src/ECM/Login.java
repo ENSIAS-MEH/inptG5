@@ -12,7 +12,7 @@ import Database.HumanResource;
 import UserInterface.Swing;
 
 /************************************************************
- * Login contain the first frame we see and use to log in.<BR>
+ * Login create the first frame we see and use to log in.<BR>
  * 
  * @author SouhailMaraoui
  *****************************/
@@ -20,11 +20,23 @@ public class Login
 {
 	
 	static Dimension screenSize;
-	public static float scaley;
+	/**
+	 * The horizontal scale of the current screen compared to 1080p to adjust UI element depending on the screen resolution. 
+	 */
 	public static float scalex;
+	/**
+	 * The vertical scale of the current screen compared to 1080p to adjust UI element depending on the screen resolution. 
+	 */
+	public static float scaley;
 	
 	private String username;
 	
+	/************************************************************
+	 * Method .<BR>
+	 * 
+	 *The main method of the program where we calculate scalex and scaley and initiate login.
+	 * @param args an array of command-line arguments for the application
+	 *****************************/
 	public static void main(String[] args) 
 	{
 		Main.Main.main(null);
@@ -36,9 +48,9 @@ public class Login
 	}
 	
 	/************************************************************
-	 * Method.<BR>
+	 * Constructor.<BR>
 	 * 
-	 * The actual login frame.
+	 * Build the login frame where a user can enter his username and password to connect.
 	 *****************************/
 	public Login()
 	{
@@ -111,26 +123,14 @@ public class Login
 	 * Method.<BR>
 	 * 
 	 * To check if the entered username and password are correct or not.
-	 * 
-	 *  @return Boolean whether we could connect or not.
+	 * @param User The Username JTextfield
+	 * @param Pass The Password JTextfield
+	 * @return Boolean whether we could connect or not.
 	 *****************************/
-	boolean connect(JTextField User,JPasswordField Pass)
+	protected boolean connect(JTextField User,JPasswordField Pass)
 	{
 		username=User.getText();
 		String password=String.valueOf(Pass.getPassword());
 		return HumanResource.connect(username, password);
 	}
-	
-	/************************************************************
-	 * Method.<BR>
-	 * 
-	 * Username getter.
-	 * 
-	 *  @return the username entered.
-	 *****************************/
-	public String getUsername()
-	{
-		return username;
-	}
-
 }
